@@ -4,6 +4,7 @@
     "description": "Show a reminder if the current site is part of the DKB-Online-Cashback Program ",
     "permissions": [
       "storage",
+      "tabs",
       "activeTab",
       "declarativeContent",
       "https://www.dkb.de/banking/plus/online-cashback/",

@@ -14,7 +14,7 @@
   }
 
   function getShopNameFromTableRowDomNode(tableRowDomNode) {
-    return tableRowDomNode.querySelector('h3').innerHTML;
+    return tableRowDomNode.querySelector('h3').innerText.trim();
   }
 
   function nodeToStoreObject(tableRowDomNode) {
@@ -23,7 +23,8 @@
 
     return {
       shopName: shopName,
-      discountInfo: discountInfo
+      discountInfo: discountInfo,
+      hostname: shopNameToHostname(shopName)
     }
   }
 
@@ -72,8 +73,8 @@
     });
   }
 
-  function shopNameToHostName(shopName) {
-    return shopName.toLowerCase();
+  function shopNameToHostname(shopName) {
+    return shopName.toLowerCase().replace(/\s/g, '-').replace("'", '-');
   }
 
   function getShopPageChangeConditions() {
@@ -81,7 +82,7 @@
       chrome.storage.local.get('cashbackShops', storeValue => {
         const rules = storeValue.cashbackShops.map(shop => {
           return new chrome.declarativeContent.PageStateMatcher({
-            pageUrl: { hostContains: shopNameToHostName(shop.shopName) },
+            pageUrl: { hostContains: shop.hostname },
           });
         });
 
@@ -102,5 +103,15 @@
         actions: [new chrome.declarativeContent.ShowPageAction()]
       }]);
     });
+  });
+
+  chrome.runtime.onMessage.addListener(function(request, sender) {
+    chrome.tabs.create({ url: request.url}, tab => {
+      chrome.tabs.executeScript(tab.id, { file: "dkb-content/content.js" }, function() {
+        chrome.tabs.sendMessage(tab.id, request);
+      });
+    });
+
+    console.log(request);
   });
 })();
