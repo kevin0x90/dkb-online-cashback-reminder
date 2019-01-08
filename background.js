@@ -25,7 +25,7 @@
       shopName: shopName,
       discountInfo: discountInfo,
       hostname: shopNameToHostname(shopName)
-    }
+    };
   }
 
   function extractShopInformation(shopListDom) {
@@ -68,8 +68,11 @@
   }
 
   function storeShopInfos(shopInfos) {
-    chrome.storage.local.set({cashbackShops: shopInfos}, function() {
-      console.log("Store shop infos");
+    return new Promise((resolve, reject) => {
+      chrome.storage.local.set({cashbackShops: shopInfos}, function() {
+        console.log("Store shop infos");
+        return resolve(shopInfos);
+      });
     });
   }
 
@@ -80,38 +83,46 @@
   function getShopPageChangeConditions() {
     return new Promise((resolve, reject) => {
       chrome.storage.local.get('cashbackShops', storeValue => {
+
+        if (storeValue.cashbackShops === undefined) {
+          return reject('no stored cashback shops');
+        }
+
         const rules = storeValue.cashbackShops.map(shop => {
           return new chrome.declarativeContent.PageStateMatcher({
             pageUrl: { hostContains: shop.hostname },
           });
         });
 
-        resolve(rules);
+        return resolve(rules);
       });
     });
   }
 
-  chrome.runtime.onInstalled.addListener(function() {
-    loadCashbackInformation()
-    .then(storeShopInfos);
-  });
-
-  chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
+  function setupDeclarativeContentRules() {
     getShopPageChangeConditions().then(conditions => {
       chrome.declarativeContent.onPageChanged.addRules([{
         conditions: conditions,
         actions: [new chrome.declarativeContent.ShowPageAction()]
       }]);
     });
+  }
+
+  chrome.runtime.onInstalled.addListener(function() {
+    loadCashbackInformation()
+    .then(storeShopInfos)
+    .then(() => {
+      chrome.declarativeContent.onPageChanged.removeRules(undefined, setupDeclarativeContentRules);
+    });
   });
 
   chrome.runtime.onMessage.addListener(function(request, sender) {
-    chrome.tabs.create({ url: request.url}, tab => {
-      chrome.tabs.executeScript(tab.id, { file: "dkb-content/content.js" }, function() {
-        chrome.tabs.sendMessage(tab.id, request);
+    if (request.action === 'newDkbCashbackFilterTab') {
+      chrome.tabs.create({ url: request.url}, tab => {
+        chrome.tabs.executeScript(tab.id, { file: "dkb-content/content.js" }, function() {
+          chrome.tabs.sendMessage(tab.id, request);
+        });
       });
-    });
-
-    console.log(request);
+    }
   });
 })();

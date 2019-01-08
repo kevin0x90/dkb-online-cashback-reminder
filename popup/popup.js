@@ -34,6 +34,7 @@
   function openLinkInTab(shop) {
     return function() {
       chrome.runtime.sendMessage({
+        action: 'newDkbCashbackFilterTab',
         activeShop: shop,
         url: this.href
       });
@@ -44,7 +45,6 @@
   .then(tab => new URL(tab.url))
   .then(url => getShopByHostname(url.hostname))
   .then(shop => {
-
     const shopNameNode = document.getElementById('shopName');
     const discountInfoNode = document.getElementById('discountInfo');
     const cashbackLinkNode = document.getElementById('gotoDkbCashback');
@@ -54,7 +54,5 @@
 
     cashbackLinkNode.href = 'https://www.dkb.de/banking/plus/online-cashback';
     cashbackLinkNode.addEventListener('click', openLinkInTab(shop));
-
-    console.log(shop);
   });
 })();
