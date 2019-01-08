@@ -19,17 +19,17 @@
     "page_action": {
       "default_popup": "popup/popup.html",
       "default_icon": {
-        "16": "images/get_started16.png",
-        "32": "images/get_started32.png",
-        "48": "images/get_started48.png",
-        "128": "images/get_started128.png"
+        "16": "images/percentage16.png",
+        "32": "images/percentage32.png",
+        "48": "images/percentage48.png",
+        "128": "images/percentage128.png"
       }
     },
     "icons": {
-      "16": "images/get_started16.png",
-      "32": "images/get_started32.png",
-      "48": "images/get_started48.png",
-      "128": "images/get_started128.png"
+      "16": "images/percentage16.png",
+      "32": "images/percentage32.png",
+      "48": "images/percentage48.png",
+      "128": "images/percentage128.png"
     },
     "options_page": "options/options.html",
     "manifest_version": 2
