@@ -1,7 +1,7 @@
   {
-    "name": "DKB-Online-Cashback-Reminder",
-    "version": "1.0",
-    "description": "Show a reminder if the current site is part of the DKB-Online-Cashback Program ",
+    "name": "Online-Cashback-Reminder (DKB compatible)",
+    "version": "0.0.1",
+    "description": "Show a reminder when the current site is part of the DKB-Online-Cashback Program ",
     "permissions": [
       "storage",
       "tabs",
