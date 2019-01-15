@@ -7,14 +7,16 @@
 
   function getShopByHostname(hostname) {
     return new Promise((resolve, reject) => {
-      chrome.storage.local.get('cashbackShops', storeValue => {
-          const activeShop = storeValue.cashbackShops.find(shopHostnameMatch(hostname));
+      chrome.runtime.sendMessage({
+        action: 'getAvailableShops'
+      }, response => {
+        const activeShop = response.shops.find(shopHostnameMatch(hostname));
 
-          if (activeShop === undefined) {
-            return reject(`no shop found for hostname: ${hostname}`);
-          } 
-            
-          return resolve(activeShop);
+        if (activeShop === undefined) {
+          return reject(`no shop found for hostname: ${hostname}`);
+        }
+
+        return resolve(activeShop);
       });
     });
   }

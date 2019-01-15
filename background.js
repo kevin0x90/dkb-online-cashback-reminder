@@ -70,7 +70,6 @@
   function storeShopInfos(shopInfos) {
     return new Promise((resolve, reject) => {
       chrome.storage.local.set({cashbackShops: shopInfos}, function() {
-        console.log("Store shop infos");
         return resolve(shopInfos);
       });
     });
@@ -80,23 +79,28 @@
     return shopName.toLowerCase().replace(/\s/g, '-').replace("'", '-');
   }
 
-  function getShopPageChangeConditions() {
+  function getCashbackShopsFromStore() {
     return new Promise((resolve, reject) => {
       chrome.storage.local.get('cashbackShops', storeValue => {
-
         if (storeValue.cashbackShops === undefined) {
           return reject('no stored cashback shops');
         }
 
-        const rules = storeValue.cashbackShops.map(shop => {
-          return new chrome.declarativeContent.PageStateMatcher({
-            pageUrl: { hostContains: shop.hostname },
-          });
-        });
-
-        return resolve(rules);
+        return resolve(storeValue.cashbackShops);
       });
     });
+  }
+
+  function mapShopsToPageUrlMatcher(shops) {
+    return shops.map(shop => new chrome.declarativeContent.PageStateMatcher({
+        pageUrl: { hostContains: shop.hostname },
+      })
+    );
+  }
+
+  function getShopPageChangeConditions() {
+    return getCashbackShopsFromStore()
+      .then(mapShopsToPageUrlMatcher);
   }
 
   function setupDeclarativeContentRules() {
@@ -108,21 +112,31 @@
     });
   }
 
-  chrome.runtime.onInstalled.addListener(function() {
-    loadCashbackInformation()
+  function synchWithCashbackInformation() {
+    return loadCashbackInformation()
     .then(storeShopInfos)
     .then(() => {
       chrome.declarativeContent.onPageChanged.removeRules(undefined, setupDeclarativeContentRules);
     });
-  });
+  }
 
-  chrome.runtime.onMessage.addListener(function(request, sender) {
+  chrome.runtime.onInstalled.addListener(synchWithCashbackInformation);
+  chrome.runtime.onStartup.addListener(synchWithCashbackInformation);
+
+  chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     if (request.action === 'newDkbCashbackFilterTab') {
       chrome.tabs.create({ url: request.url}, tab => {
         chrome.tabs.executeScript(tab.id, { file: "dkb-content/content.js" }, function() {
           chrome.tabs.sendMessage(tab.id, request);
         });
       });
+    } else if (request.action === 'getAvailableShops') {
+      getCashbackShopsFromStore()
+      .then(shops => {
+        sendResponse({ shops: shops });
+      });
+
+      return true;
     }
   });
 })();
