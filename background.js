@@ -61,22 +61,27 @@
     };
 
     return fetch('https://www.dkb.de/banking/plus/online-cashback/', getOptions)
-    .then(() => fetch(CASHBACK_URL, getOptions))
-    .then(res => res.text())
-    .then(transformToDomElement)
-    .then(extractShopInformation);
+      .then(() => fetch(CASHBACK_URL, getOptions))
+      .then(res => res.text())
+      .then(transformToDomElement)
+      .then(extractShopInformation);
   }
 
   function storeShopInfos(shopInfos) {
     return new Promise((resolve, reject) => {
       chrome.storage.local.set({cashbackShops: shopInfos}, function() {
+
+        if (chrome.runtime.lastError) {
+          return reject(chrome.runtime.lastError);
+        }
+
         return resolve(shopInfos);
       });
     });
   }
 
   function shopNameToHostname(shopName) {
-    return shopName.toLowerCase().replace(/\s/g, '-').replace("'", '-');
+    return shopName.toLowerCase().replace(/\s/g, '-').replace('\'', '-');
   }
 
   function getCashbackShopsFromStore() {
@@ -93,9 +98,8 @@
 
   function mapShopsToPageUrlMatcher(shops) {
     return shops.map(shop => new chrome.declarativeContent.PageStateMatcher({
-        pageUrl: { hostContains: shop.hostname },
-      })
-    );
+      pageUrl: { hostContains: shop.hostname },
+    }));
   }
 
   function getShopPageChangeConditions() {
@@ -114,10 +118,10 @@
 
   function synchWithCashbackInformation() {
     return loadCashbackInformation()
-    .then(storeShopInfos)
-    .then(() => {
-      chrome.declarativeContent.onPageChanged.removeRules(undefined, setupDeclarativeContentRules);
-    });
+      .then(storeShopInfos)
+      .then(() => {
+        chrome.declarativeContent.onPageChanged.removeRules(undefined, setupDeclarativeContentRules);
+      });
   }
 
   chrome.runtime.onInstalled.addListener(synchWithCashbackInformation);
@@ -126,15 +130,15 @@
   chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     if (request.action === 'newDkbCashbackFilterTab') {
       chrome.tabs.create({ url: request.url}, tab => {
-        chrome.tabs.executeScript(tab.id, { file: "dkb-content/content.js" }, function() {
+        chrome.tabs.executeScript(tab.id, { file: 'dkb-content/content.js' }, function() {
           chrome.tabs.sendMessage(tab.id, request);
         });
       });
     } else if (request.action === 'getAvailableShops') {
       getCashbackShopsFromStore()
-      .then(shops => {
-        sendResponse({ shops: shops });
-      });
+        .then(shops => {
+          sendResponse({ shops: shops });
+        });
 
       return true;
     }
