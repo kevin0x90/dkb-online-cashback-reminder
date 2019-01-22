@@ -1,6 +1,20 @@
 (function () {
   'use strict';
 
+  function findActiveShop(shops, hostname) {
+    const hostnameLengthDiff = (shopHostname) => Math.abs(shopHostname.length - hostname.length);
+
+    const sortedShops = shops
+      .filter(shopHostnameMatch(hostname))
+      .sort((shopA, shopB) => hostnameLengthDiff(shopA.hostname) - hostnameLengthDiff(shopB.hostname));
+
+    if (sortedShops.length === 0) {
+      return undefined;
+    }
+
+    return sortedShops[0];
+  }
+
   function shopHostnameMatch(targetHostname) {
     return shop => targetHostname.indexOf(shop.hostname) !== -1;
   }
@@ -10,7 +24,7 @@
       chrome.runtime.sendMessage({
         action: 'getAvailableShops'
       }, response => {
-        const activeShop = response.shops.find(shopHostnameMatch(hostname));
+        const activeShop = findActiveShop(response.shops, hostname)
 
         if (activeShop === undefined) {
           return reject(`no shop found for hostname: ${hostname}`);
