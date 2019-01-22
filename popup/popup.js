@@ -24,7 +24,7 @@
       chrome.runtime.sendMessage({
         action: 'getAvailableShops'
       }, response => {
-        const activeShop = findActiveShop(response.shops, hostname)
+        const activeShop = findActiveShop(response.shops, hostname);
 
         if (activeShop === undefined) {
           return reject(`no shop found for hostname: ${hostname}`);
@@ -58,17 +58,17 @@
   }
 
   getActiveTab()
-  .then(tab => new URL(tab.url))
-  .then(url => getShopByHostname(url.hostname))
-  .then(shop => {
-    const shopNameNode = document.getElementById('shopName');
-    const discountInfoNode = document.getElementById('discountInfo');
-    const cashbackLinkNode = document.getElementById('gotoDkbCashback');
+    .then(tab => new URL(tab.url))
+    .then(url => getShopByHostname(url.hostname))
+    .then(shop => {
+      const shopNameNode = document.getElementById('shopName');
+      const discountInfoNode = document.getElementById('discountInfo');
+      const cashbackLinkNode = document.getElementById('gotoDkbCashback');
 
-    shopNameNode.innerText = shop.shopName;
-    discountInfoNode.innerText = shop.discountInfo;
+      shopNameNode.innerText = shop.shopName;
+      discountInfoNode.innerText = shop.discountInfo;
 
-    cashbackLinkNode.href = 'https://www.dkb.de/banking/plus/online-cashback';
-    cashbackLinkNode.addEventListener('click', openLinkInTab(shop));
-  });
+      cashbackLinkNode.href = 'https://www.dkb.de/banking/plus/online-cashback';
+      cashbackLinkNode.addEventListener('click', openLinkInTab(shop));
+    });
 })();

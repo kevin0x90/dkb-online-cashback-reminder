@@ -24,13 +24,13 @@
     'rewe lieferservice': 'shop.rewe',
     'outletcity metzingen online shop': 'outletcity',
     'peter hahn': 'peterhahn',
-    "l'occitane": 'loccitane',
+    'l\'occitane': 'loccitane',
     'reno - die behalte ich gleich an!': 'reno',
     'van graaf': 'vangraaf',
     'bofrost*': 'bofrost',
     'fleurop blumenversand': 'fleurop',
     'neckermann macht´s möglich! - möbel, heimtextilien': 'neckermann',
-    "lands' end": 'landsend',
+    'lands\' end': 'landsend',
     'the body shop': 'thebodyshop',
     'takko fashion': 'takko',
     'netto marken-discount': 'netto-online',
@@ -43,7 +43,7 @@
     'allyouneed fresh': 'allyouneedfresh',
     'versandhaus wenz': 'wenz',
     'ctshirts.com - charles tyrwhitt': 'ctshirts',
-    "i´m walking": 'imwalking',
+    'i´m walking': 'imwalking',
     'house of gerry weber': 'house-of-gerryweber',
     'runners point': 'runnerspoint',
     'microsoft store': 'microsoft',
@@ -127,21 +127,26 @@
     };
 
     return fetch('https://www.dkb.de/banking/plus/online-cashback/', getOptions)
-    .then(() => fetch(CASHBACK_URL, getOptions))
-    .then(res => res.text())
-    .then(transformToDomElement)
-    .then(extractShopInformation);
+      .then(() => fetch(CASHBACK_URL, getOptions))
+      .then(res => res.text())
+      .then(transformToDomElement)
+      .then(extractShopInformation);
   }
 
   function storeShopInfos(shopInfos) {
     return new Promise((resolve, reject) => {
       chrome.storage.local.set({cashbackShops: shopInfos}, function() {
+
+        if (chrome.runtime.lastError) {
+          return reject(chrome.runtime.lastError);
+        }
+
         return resolve(shopInfos);
       });
     });
   }
 
-  function shopNameToHostname(shopName) {
+  function shopNameToHostname(shopName) {    
     const normalizedShopName = shopName.toLowerCase();
     const hostname = SHOP_HOSTNAME_LOOKUP[normalizedShopName];
 
@@ -150,13 +155,12 @@
     }
 
     return normalizedShopName
-      .replace("&", " and ")
+      .replace('&', ' and ')
       .replace(/\s/g, '-')
-      .replace("'", '-')
-      .replace("ö", "oe")
-      .replace("ä", "ae")
-      .replace("ü", "ue");
-      
+      .replace('\'', '-')
+      .replace('ö', 'oe')
+      .replace('ä', 'ae')
+      .replace('ü', 'ue');
   }
 
   function getCashbackShopsFromStore() {
@@ -173,9 +177,8 @@
 
   function mapShopsToPageUrlMatcher(shops) {
     return shops.map(shop => new chrome.declarativeContent.PageStateMatcher({
-        pageUrl: { hostContains: shop.hostname },
-      })
-    );
+      pageUrl: { hostContains: shop.hostname },
+    }));
   }
 
   function getShopPageChangeConditions() {
@@ -194,10 +197,10 @@
 
   function synchWithCashbackInformation() {
     return loadCashbackInformation()
-    .then(storeShopInfos)
-    .then(() => {
-      chrome.declarativeContent.onPageChanged.removeRules(undefined, setupDeclarativeContentRules);
-    });
+      .then(storeShopInfos)
+      .then(() => {
+        chrome.declarativeContent.onPageChanged.removeRules(undefined, setupDeclarativeContentRules);
+      });
   }
 
   chrome.runtime.onInstalled.addListener(synchWithCashbackInformation);
@@ -206,15 +209,15 @@
   chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     if (request.action === 'newDkbCashbackFilterTab') {
       chrome.tabs.create({ url: request.url}, tab => {
-        chrome.tabs.executeScript(tab.id, { file: "dkb-content/content.js" }, function() {
+        chrome.tabs.executeScript(tab.id, { file: 'dkb-content/content.js' }, function() {
           chrome.tabs.sendMessage(tab.id, request);
         });
       });
     } else if (request.action === 'getAvailableShops') {
       getCashbackShopsFromStore()
-      .then(shops => {
-        sendResponse({ shops: shops });
-      });
+        .then(shops => {
+          sendResponse({ shops: shops });
+        });
 
       return true;
     }
