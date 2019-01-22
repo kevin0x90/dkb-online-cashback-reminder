@@ -24,7 +24,7 @@
       chrome.runtime.sendMessage({
         action: 'getAvailableShops'
       }, response => {
-        const activeShop = findActiveShop(response.shops, hostname)
+        const activeShop = findActiveShop(response.shops, hostname);
 
         if (activeShop === undefined) {
           return reject(`no shop found for hostname: ${hostname}`);

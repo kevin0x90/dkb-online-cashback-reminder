@@ -24,13 +24,13 @@
     'rewe lieferservice': 'shop.rewe',
     'outletcity metzingen online shop': 'outletcity',
     'peter hahn': 'peterhahn',
-    "l'occitane": 'loccitane',
+    'l\'occitane': 'loccitane',
     'reno - die behalte ich gleich an!': 'reno',
     'van graaf': 'vangraaf',
     'bofrost*': 'bofrost',
     'fleurop blumenversand': 'fleurop',
     'neckermann macht´s möglich! - möbel, heimtextilien': 'neckermann',
-    "lands' end": 'landsend',
+    'lands\' end': 'landsend',
     'the body shop': 'thebodyshop',
     'takko fashion': 'takko',
     'netto marken-discount': 'netto-online',
@@ -43,7 +43,7 @@
     'allyouneed fresh': 'allyouneedfresh',
     'versandhaus wenz': 'wenz',
     'ctshirts.com - charles tyrwhitt': 'ctshirts',
-    "i´m walking": 'imwalking',
+    'i´m walking': 'imwalking',
     'house of gerry weber': 'house-of-gerryweber',
     'runners point': 'runnerspoint',
     'microsoft store': 'microsoft',
@@ -155,12 +155,12 @@
     }
 
     return normalizedShopName
-      .replace("&", " and ")
+      .replace('&', ' and ')
       .replace(/\s/g, '-')
-      .replace("'", '-')
-      .replace("ö", "oe")
-      .replace("ä", "ae")
-      .replace("ü", "ue");      
+      .replace('\'', '-')
+      .replace('ö', 'oe')
+      .replace('ä', 'ae')
+      .replace('ü', 'ue');
   }
 
   function getCashbackShopsFromStore() {
