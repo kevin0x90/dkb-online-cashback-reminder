@@ -1,3 +1,4 @@
+before_install: cd src
 language: node_js
 cache: npm
 node_js:
