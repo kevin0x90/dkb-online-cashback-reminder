@@ -2,5 +2,7 @@ language: node_js
 cache: npm
 node_js:
   - "node"
+
+before_script: cd src
 script:
   - npm run lint
