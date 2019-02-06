@@ -14,7 +14,7 @@ const SHOP_HOSTNAME_LOOKUP = {
   'o2 germany': 'o2online',
   'floraprima blumenversand': 'floraprima',
   'apo-discounter.de': 'apodiscounter',
-  'erwin müller': 'erwinmueller',
+  'erwin m\xfcller': 'erwinmueller',
   'spiele max': 'spielemax.de',
   'depot online-shop': 'depot-online',
   'babor cosmetics': 'babor',
@@ -26,7 +26,7 @@ const SHOP_HOSTNAME_LOOKUP = {
   'van graaf': 'vangraaf',
   'bofrost*': 'bofrost',
   'fleurop blumenversand': 'fleurop',
-  'neckermann macht´s möglich! - möbel, heimtextilien': 'neckermann',
+  'neckermann macht\xB4s m\xf6glich! - m\xf6bel, heimtextilien': 'neckermann',
   'lands\' end': 'landsend',
   'the body shop': 'thebodyshop',
   'takko fashion': 'takko',
@@ -40,7 +40,7 @@ const SHOP_HOSTNAME_LOOKUP = {
   'allyouneed fresh': 'allyouneedfresh',
   'versandhaus wenz': 'wenz',
   'ctshirts.com - charles tyrwhitt': 'ctshirts',
-  'i´m walking': 'imwalking',
+  'i\xB4m walking': 'imwalking',
   'house of gerry weber': 'house-of-gerryweber',
   'runners point': 'runnerspoint',
   'microsoft store': 'microsoft',
@@ -50,18 +50,18 @@ const SHOP_HOSTNAME_LOOKUP = {
   disneystore: 'shopdisney',
   'camp david & soccx': 'campdavid-soccx',
   'g data software ag': 'gdatasoftware',
-  'hellweg - die profi-baumärkte': 'hellweg',
+  'hellweg - die profi-baum\xe4rkte': 'hellweg',
   'kaspersky lab': 'kaspersky',
   miamoda: 'mia-moda',
   'hertha bsc': 'herthabsc',
   'alba berlin': 'albaberlin',
-  'eisbären berlin': 'eisbaeren',
-  'füchse berlin': 'fuechse',
+  'eisb\xe4ren berlin': 'eisbaeren',
+  'f\xfcchse berlin': 'fuechse',
   'sc dhfk leipzig': 'scdhfk-handball',
   'sc magdeburg': 'scm-handball',
   'handball wm 2019': 'handball19',
-  'frischauf! göppingen': 'frischauf-gp',
-  'hunkemöller': 'hunkemoller'
+  'frischauf! g\xf6ppingen': 'frischauf-gp',
+  'hunkem\xf6ller': 'hunkemoller'
 };
 
 function shopHostnameMatch(targetHostname) {
@@ -80,9 +80,9 @@ export function shopNameToHostname(shopName) {
     .replace('&', ' and ')
     .replace(/\s/g, '-')
     .replace('\'', '-')
-    .replace('ö', 'oe')
-    .replace('ä', 'ae')
-    .replace('ü', 'ue');
+    .replace('\xf6', 'oe')
+    .replace('\xe4', 'ae')
+    .replace('\xfc', 'ue');
 }
 
 export function findActiveShop(shops, hostname) {

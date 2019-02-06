@@ -11,7 +11,9 @@ module.exports = function (api) {
     ]
   ];
 
-  const plugins = [];
+  const plugins = [
+    '@babel/plugin-transform-template-literals'
+  ];
 
   return {
     presets,
