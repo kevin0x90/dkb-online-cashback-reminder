@@ -27,5 +27,5 @@ module.exports = {
       '.js'
     ]
   },
-  devtool: 'source-map'
+  devtool: 'cheap-source-map'
 };
