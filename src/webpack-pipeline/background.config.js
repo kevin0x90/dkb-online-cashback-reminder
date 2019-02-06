@@ -22,6 +22,8 @@ module.exports = Object.assign({}, commonConfig, {
         to: 'images/'
       }
     ]),
-    new MinifyPlugin()
+    new MinifyPlugin({}, {
+      comments: false
+    })
   ]
 });

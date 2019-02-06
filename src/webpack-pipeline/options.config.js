@@ -29,6 +29,8 @@ module.exports = Object.assign({}, commonConfig, {
       assets: ['options.css'],
       append: true
     }),
-    new MinifyPlugin()
+    new MinifyPlugin({}, {
+      comments: false
+    })
   ]
 });
