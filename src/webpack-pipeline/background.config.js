@@ -2,6 +2,7 @@ const path = require('path');
 const commonConfig = require('./common.config');
 
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const MinifyPlugin = require("babel-minify-webpack-plugin");
 
 module.exports = Object.assign({}, commonConfig, {
   entry: {
@@ -20,6 +21,7 @@ module.exports = Object.assign({}, commonConfig, {
         from: path.resolve(__dirname, '../app/images'),
         to: 'images/'
       }
-    ])
+    ]),
+    new MinifyPlugin()
   ]
 });

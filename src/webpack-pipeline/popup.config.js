@@ -4,6 +4,7 @@ const commonConfig = require('./common.config');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const MinifyPlugin = require("babel-minify-webpack-plugin");
 
 module.exports = Object.assign({}, commonConfig, {
   entry: {
@@ -27,6 +28,7 @@ module.exports = Object.assign({}, commonConfig, {
     new HtmlWebpackIncludeAssetsPlugin({
       assets: ['popup.css'],
       append: true
-    })
+    }),
+    new MinifyPlugin()
   ]
 });
