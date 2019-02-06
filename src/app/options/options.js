@@ -1,13 +1,15 @@
-(function () {
-  'use strict';
+import ShopRepository from '../lib/shopRepository';
 
-  chrome.storage.local.get('cashbackShops', storeValue => {
+const shopRepository = new ShopRepository();
+
+shopRepository.getShops()
+  .then(cashbackShops => {
     const list = document.getElementById('stored-cashbackshops');
-    storeValue.cashbackShops.forEach(shop => {
+
+    cashbackShops.forEach(shop => {
       const item = document.createElement('li');
       const content = document.createTextNode(shop.shopName);
       item.appendChild(content);
       list.appendChild(item);
     });
   });
-})();
