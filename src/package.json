@@ -3,15 +3,26 @@
   "version": "0.0.2",
   "description": "Show a reminder if the current site is part of the DKB-Online-Cashback Program\r Online-Cashback-Reminder (DKB compatible) shows you an active icon on every page that is part of the DKB Online Cashback program. When you hit the icon on a cashback site a poup will show the cashback amount and a link that opens the DKB Cashback site in a new tab and filters the list for the selected cashback partner site.",
   "main": "background.js",
-  "dependencies": {},
+  "dependencies": {
+    "@babel/polyfill": "^7.2.5"
+  },
   "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.3.1",
+    "babel-loader": "^8.0.5",
     "bestzip": "^2.1.2",
-    "eslint": "^5.12.1"
+    "copy-webpack-plugin": "^4.6.0",
+    "eslint": "^5.12.1",
+    "html-webpack-include-assets-plugin": "^1.0.7",
+    "html-webpack-plugin": "^3.2.0",
+    "webpack": "^4.29.1",
+    "webpack-cli": "^3.2.3"
   },
   "scripts": {
     "clean": "rm -r dist/",
     "lint": "eslint ./app/**/*.js",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
     "package": "mkdir dist && cd app/ && bestzip ../dist/app.zip * && cd .."
   },
   "repository": {
