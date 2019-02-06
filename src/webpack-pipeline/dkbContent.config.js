@@ -11,7 +11,10 @@ module.exports = Object.assign({}, commonConfig, {
     path: path.resolve(__dirname, '../dist/dkb-content')
   },
   plugins: [
-    new MinifyPlugin({}, {
+    new MinifyPlugin({
+      propertyLiterals: false
+    },
+    {
       comments: false
     })
   ]

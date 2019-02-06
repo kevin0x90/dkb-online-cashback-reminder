@@ -29,9 +29,11 @@ module.exports = Object.assign({}, commonConfig, {
       assets: ['popup.css'],
       append: true
     }),
-    // TODO: The minifier breaks the code currently
-    // new MinifyPlugin({}, {
-    //   comments: false
-    // })
+    new MinifyPlugin({
+      propertyLiterals: false
+    },
+    {
+      comments: false
+    })
   ]
 });
