@@ -13,10 +13,7 @@ No tracking and just minimal access rights save your privacy.
 The following additions / features are planned at the moment:
 
 - Add automatic build of the extension package with travis
-- Add eslint
 - Add unit tests
-- Improve shop url matching
-- Extract code into modules
 - Add german language support
 
 The extension is available in the [chrome app store](https://chrome.google.com/webstore/detail/online-cashback-reminder/kahbbcgmohmgphpepdpdnloicojmpedc "chrome app store").
