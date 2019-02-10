@@ -22,11 +22,11 @@
     "webpack-cli": "^3.2.3"
   },
   "scripts": {
-    "clean": "rm -r dist/",
+    "clean": "rm -rf dist/ && rm -f extension-package.zip",
     "lint": "eslint ./app/**/*.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
-    "package": "mkdir dist && cd app/ && bestzip ../dist/app.zip * && cd .."
+    "package": "cd dist/ && bestzip ../extension-package.zip * && cd .."
   },
   "repository": {
     "type": "git",

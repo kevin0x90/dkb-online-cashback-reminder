@@ -2,6 +2,19 @@ before_install: cd src
 language: node_js
 cache: npm
 node_js:
-  - "node"
+- node
 script:
-  - npm run lint
+- npm run lint
+- npm run clean
+- npm run build
+before_deploy:
+  - "npm run package"
+deploy:
+  provider: releases
+  api_key:
+    secure: UGkjf8mgcix2X93i7X/6hnnldwEeB37jIkKStrYHA9aWWdDEokBehlRAF2PWQnHDSsr9Sy4ybTzTrrmg/JPGt2hqHleyl7AbB6vsrCJs4j8sZK93Su8pCXEnQAFWRg8JJe5IhhCw5G2UqWkuVvDj2d0a23KqgH1BnJbPbiEOegOqxr7cuTbS8fWuUWqBCgBy5gCzwJG/4dN2JE3F974YUnNJTaeKDOk91FmRmt45JoW+GKA6M8FdSkcQpJfSz7x7hpCMuRoy1bDHYTrH/OwJXwVheJws08Nea+9AjOIBaSTCv4u7t8y3kPTZMBgW6uPrFC0XZXpmsJdnPtDs/wxUdeP4lrl/F66o1MhNkeCimXOMzrBdSt6TdlpBdo7IIrdNnsQGFIkq1P0BD8PEugvTr/29jM2vM1rMMEW9FNM/6f6Yuhsk60nN7bJnBTTxAq0qoCytuXF1rC6FeqFYXOkV9PmheG52Nb9U6ml6+hkm50ph/R+vzAzXVXwLiAv/BS3Pshmtu0z28sYv/ipmkmCVMwTM0OuZv1W0Ayax+JOw2s9/yjUkEFOkf/oXyj6nguvOW5mc+jQccobDnccIpsKZcF554zXfuDE5IYJ3Q38D1msgXeVvHqZdbbZc7g0qkMre032yQtU5Edpt35m0U6L9LgKKWpodKLno6wU3p4rYHFs=
+  file: 'extension-package.zip'
+  skip_cleanup: true
+  on:
+    branch: master
+    tags: true
