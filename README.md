@@ -12,7 +12,6 @@ No tracking and just minimal access rights save your privacy.
 # Feel free to contribute and/or provide feedback
 The following additions / features are planned at the moment:
 
-- Add automatic build of the extension package with travis
 - Add unit tests
 - Add german language support
 
