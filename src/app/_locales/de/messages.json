@@ -1,0 +1,14 @@
+{
+  "extension_name": {
+    "message": "Online-Cashback-Erinnerung (DKB kompatibel)"
+  },
+  "extension_description": {
+    "message": "Zeigt an ob die aktuelle Seite am Online-Cashback-Programm der DKB Bank teilnimmt. Und bietet die Möglichkeit die Cashback-Link Seite direkt zu öffnen."
+  },
+  "goto_dkb_cashback_link_page": {
+    "message": "Zum Cashback Link"
+  },
+  "available_cashback_shops": {
+    "message": "Unterstützte Shops"
+  }
+}

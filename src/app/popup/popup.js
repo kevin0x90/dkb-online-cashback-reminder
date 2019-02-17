@@ -27,6 +27,8 @@ function openLinkInTab(shop) {
   };
 }
 
+document.getElementById('gotoDkbCashback').innerHTML = chrome.i18n.getMessage('goto_dkb_cashback_link_page');
+
 getActiveTab()
   .then(tab => new URL(tab.url))
   .then(url => getShopByHostname(url.hostname))
