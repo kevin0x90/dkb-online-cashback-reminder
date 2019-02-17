@@ -20,6 +20,10 @@ module.exports = Object.assign({}, commonConfig, {
       {
         from: path.resolve(__dirname, '../app/images'),
         to: 'images/'
+      },
+      {
+        from: path.resolve(__dirname, '../app/_locales'),
+        to: '_locales/'
       }
     ]),
     new MinifyPlugin({

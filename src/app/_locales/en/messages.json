@@ -1,0 +1,14 @@
+{
+  "extension_name": {
+    "message": "Online-Cashback-Reminder (DKB compatible)"
+  },
+  "extension_description": {
+    "message": "Show a reminder when the current site is part of the DKB-Online-Cashback Program. And offers the possibility to open the cashback link page directly in a new tab."
+  },
+  "goto_dkb_cashback_link_page": {
+    "message": "Goto cashback page"
+  },
+  "available_cashback_shops": {
+    "message": "Current available shops"
+  }
+}

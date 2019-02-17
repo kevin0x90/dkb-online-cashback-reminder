@@ -1,7 +1,8 @@
   {
-    "name": "Online-Cashback-Reminder (DKB compatible)",
+    "name": "__MSG_extension_name__",
     "version": "1.0.0",
-    "description": "Show a reminder when the current site is part of the DKB-Online-Cashback Program ",
+    "description": "__MSG_extension_description__",
+    "default_locale": "en",
     "permissions": [
       "storage",
       "tabs",

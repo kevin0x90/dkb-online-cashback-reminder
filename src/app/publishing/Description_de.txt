@@ -1,0 +1,7 @@
+Zeigt über ein Icon an ob die aktuelle Seite am Online-Cashback Programm der DKB Bank teilnimmt.
+Wenn das Icon Aktiv ist kann man sich durch einen Klick anzeigen lasen wie viel Cashback man bekommt.
+Über einen Button kann man dann die Seite mit dem Cashback-Link direkt in einem neuen Tab öffnen lassen.
+
+Nie wieder Cashback vergessen wenn man Kunde der DKB ist. Lästiges suchen in der Shop-Liste entfällt.
+
+Enthält keine Werbung und kein Tracking.
