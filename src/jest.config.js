@@ -13,7 +13,8 @@ module.exports = {
 
   // An array of regexp pattern strings used to skip coverage collection
   coveragePathIgnorePatterns: [
-    "\\\\node_modules\\\\"
+    "\\\\node_modules\\\\",
+    "\\\\mockData\\\\"
   ],
 
   // Make calling deprecated APIs throw helpful error messages

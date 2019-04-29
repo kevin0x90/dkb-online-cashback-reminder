@@ -1,4 +1,4 @@
-import loadDkbCashbackInformation from './lib/dkbCashbachInformationLoader';
+import loadDkbCashbackInformation from './lib/dkbCashbackInformationLoader';
 import ShopRepository from './lib/shopRepository';
 
 const shopRepository = new ShopRepository();
