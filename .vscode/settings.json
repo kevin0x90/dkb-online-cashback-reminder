@@ -1,5 +1,9 @@
 {
     "eslint.workingDirectories": [
       "./src"
-    ]
+    ],
+    "jest.pathToConfig": "jest.config.js",
+    "jest.pathToJest": "npm run test --",
+    "jest.rootPath": "./src",
+    "jest.showCoverageOnLoad": true
 }
