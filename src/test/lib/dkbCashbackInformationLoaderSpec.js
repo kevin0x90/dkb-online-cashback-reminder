@@ -14,7 +14,7 @@ describe('dkb cashback information loader', () => {
   });
 
   it('should fetch a list of shop information from DKB cashback page', () => {
-    fetch.mockImplementation((_, __) => Promise.resolve({
+    fetch.mockImplementation(() => Promise.resolve({
       text: () => Promise.resolve(dkbCashbackResponse)
     }));
 
