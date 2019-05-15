@@ -24,6 +24,10 @@ describe('Provides utility methods to get the hostname from a shop name and the 
         hostname: 'my-test-shop'
       },
       {
+        shopName: 'my awesome test shop',
+        hostname: 'my-test'
+      },
+      {
         shopName: 'unknown shop',
         hostname: 'unknown-shop'
       }
