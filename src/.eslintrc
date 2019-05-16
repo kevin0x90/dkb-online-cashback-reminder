@@ -3,7 +3,8 @@
   "env": {
     "es6": true,
     "browser": true,
-    "webextensions": true
+    "webextensions": true,
+    "jest": true
   },
   "parserOptions": {
     "ecmaVersion": 6,
