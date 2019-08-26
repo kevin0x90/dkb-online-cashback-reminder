@@ -5,6 +5,7 @@ describe('Provides utility methods to get the hostname from a shop name and the 
     shopName          | expectedHostname
     ${'about you'}    | ${'aboutyou'}
     ${'mein koffer'}  | ${'mein-koffer'}
+    ${'more & more'}  | ${'more-and-more'}
   `('should correctly resolve a shop name $shopName to hostname $hostname',
   ({shopName, expectedHostname}) => {
     const hostname = shopNameToHostname(shopName);
@@ -16,7 +17,9 @@ describe('Provides utility methods to get the hostname from a shop name and the 
     hostname          | expectedShop
     ${'my-test-shop'} | ${{ shopName: 'my test shop', hostname: 'my-test-shop'}}
     ${'unknown'}      | ${undefined}
-  `('should find the shop $shop to a hostname $hostname',
+    ${'shop.olympus'} | ${undefined}
+    ${'olymp'}        | ${{ shopName: 'olymp', hostname: 'olymp'}}
+  `('should find the shop $expectedShop to a hostname $hostname',
   ({hostname, expectedShop}) => {
     const shops = [
       {
@@ -30,6 +33,10 @@ describe('Provides utility methods to get the hostname from a shop name and the 
       {
         shopName: 'unknown shop',
         hostname: 'unknown-shop'
+      },
+      {
+        shopName: 'olymp',
+        hostname: 'olymp'
       }
     ];
 

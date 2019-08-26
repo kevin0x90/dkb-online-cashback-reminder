@@ -1,3 +1,5 @@
+import escapeStringRegExp from 'escape-string-regexp';
+
 const SHOP_HOSTNAME_LOOKUP = {
   'shop der deutschen post': 'shop.deutschepost',
   'about you': 'aboutyou',
@@ -61,11 +63,19 @@ const SHOP_HOSTNAME_LOOKUP = {
   'sc magdeburg': 'scm-handball',
   'handball wm 2019': 'handball19',
   'frischauf! g\xf6ppingen': 'frischauf-gp',
-  'hunkem\xf6ller': 'hunkemoller'
+  'hunkem\xf6ller': 'hunkemoller',
+  'jack wolfskin outdoor': 'jack-wolfskin',
+  'karstadt sports': 'karstadtsports',
+  's.oliver': 'soliver'
 };
 
 function shopHostnameMatch(targetHostname) {
-  return shop => targetHostname.indexOf(shop.hostname) !== -1;
+  return shop => {
+    const escapedShopHostname = escapeStringRegExp(shop.hostname);
+    const shopHostnameMatcher = new RegExp(`\\b${escapedShopHostname}\\b`);
+
+    return shopHostnameMatcher.test(targetHostname);
+  };
 }
 
 export function shopNameToHostname(shopName) {
@@ -77,7 +87,7 @@ export function shopNameToHostname(shopName) {
   }
 
   return normalizedShopName
-    .replace('&', ' and ')
+    .replace('&', 'and')
     .replace(/\s/g, '-')
     .replace('\'', '-')
     .replace('\xf6', 'oe')
