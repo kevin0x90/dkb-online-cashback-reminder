@@ -4,7 +4,8 @@
   "description": "Show a reminder if the current site is part of the DKB-Online-Cashback Program\r Online-Cashback-Reminder (DKB compatible) shows you an active icon on every page that is part of the DKB Online Cashback program. When you hit the icon on a cashback site a poup will show the cashback amount and a link that opens the DKB Cashback site in a new tab and filters the list for the selected cashback partner site.",
   "main": "background.js",
   "dependencies": {
-    "@babel/polyfill": "^7.2.5"
+    "@babel/polyfill": "^7.2.5",
+    "escape-string-regexp": "^2.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.3.4",

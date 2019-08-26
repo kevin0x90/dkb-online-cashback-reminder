@@ -1,11 +1,12 @@
 import loadDkbCashbackInformation from './lib/dkbCashbackInformationLoader';
 import ShopRepository from './lib/shopRepository';
+import escapeStringRegEx from 'escape-string-regexp';
 
 const shopRepository = new ShopRepository();
 
 function mapShopsToPageUrlMatcher(shops) {
   return shops.map(shop => new chrome.declarativeContent.PageStateMatcher({
-    pageUrl: { hostContains: shop.hostname },
+    pageUrl: { originAndPathMatches: `\\b${escapeStringRegEx(shop.hostname)}\\b` },
   }));
 }
 
