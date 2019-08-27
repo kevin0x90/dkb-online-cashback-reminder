@@ -9,9 +9,11 @@ function getShopNameFromTableRowDomNode(tableRowDomNode) {
 }
 
 function getDiscountInfoFromTableRowDomNode(tableRowDomNode) {
-  const discountNodeText = tableRowDomNode.querySelector('td:nth-child(3)>span').innerText;
+  const discountNodeText = tableRowDomNode.querySelector('td:nth-child(3)>span')
+    .innerText;
 
-  return discountNodeText.replace(/ /g, '')
+  return discountNodeText
+    .replace(/ /g, '')
     .replace(/\s/g, ' ')
     .trim();
 }
@@ -23,7 +25,7 @@ function nodeToStoreObject(tableRowDomNode) {
   return {
     shopName: shopName,
     discountInfo: discountInfo,
-    hostname: shopNameToHostname(shopName)
+    hostname: shopNameToHostname(shopName),
   };
 }
 
@@ -34,7 +36,8 @@ function extractShopInformation(shopListDom) {
 }
 
 function loadCashbackInformation() {
-  const CASHBACK_URL = 'https://www.dkb.de/Welcome/content/CmsDetail/Card4YouShops.xhtml' +
+  const CASHBACK_URL =
+    'https://www.dkb.de/Welcome/content/CmsDetail/Card4YouShops.xhtml' +
     '?$event=gotoPage' +
     '&category=0' +
     '&sort=0' +
@@ -47,16 +50,16 @@ function loadCashbackInformation() {
     credentials: 'include',
     headers: {
       accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-      'accept-language':'de-DE,de;q=0.9,en-US;q=0.8,en;q=0.7',
+      'accept-language': 'de-DE,de;q=0.9,en-US;q=0.8,en;q=0.7',
       'x-requested-with': 'XMLHttpRequest',
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Credentials': true,
-      'Access-Control-Allow-Methods': 'GET'
+      'Access-Control-Allow-Methods': 'GET',
     },
     referrer: 'https://www.dkb.de/banking/plus/online-cashback/',
     referrerPolicy: 'no-referrer-when-downgrade',
     method: 'GET',
-    mode: 'cors'
+    mode: 'cors',
   };
 
   return fetch('https://www.dkb.de/banking/plus/online-cashback/', getOptions)

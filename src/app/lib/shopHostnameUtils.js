@@ -9,7 +9,7 @@ const SHOP_HOSTNAME_LOOKUP = {
   'sanicare - die versandapotheke': 'sanicare',
   'toys r us': 'toysrus',
   'elv elektronik': 'elv',
-  'lego shop deutschland': 'shop.lego',
+  'lego shop deutschland': 'lego',
   'hotel de': 'hotel',
   'a.t.u auto-teile-unger': 'atu',
   'nike store': 'nike',
@@ -43,7 +43,6 @@ const SHOP_HOSTNAME_LOOKUP = {
   'versandhaus wenz': 'wenz',
   'ctshirts.com - charles tyrwhitt': 'ctshirts',
   'i\xB4m walking': 'imwalking',
-  'house of gerry weber': 'house-of-gerryweber',
   'runners point': 'runnerspoint',
   'microsoft store': 'microsoft',
   'villeroy & boch': 'villeroy-boch',
@@ -66,7 +65,20 @@ const SHOP_HOSTNAME_LOOKUP = {
   'hunkem\xf6ller': 'hunkemoller',
   'jack wolfskin outdoor': 'jack-wolfskin',
   'karstadt sports': 'karstadtsports',
-  's.oliver': 'soliver'
+  's.oliver': 'soliver',
+  boden: 'bodendirect',
+  'c&a': 'c-and-a',
+  'smyths toys': 'smythstoys',
+  'ernsting\'s family': 'ernstings-family',
+  'dänisches bettenlager': 'daenischesbettenlager',
+  'happy socks': 'happysocks',
+  'house of gerry weber': 'gerryweber',
+  'little lunch': 'littlelunch',
+  'tui cruises': 'tuicruises',
+  'heide park resort': 'heide-park',
+  'br volleys': 'berlin-recycling-volleys',
+  'tvb 1898 stuttgart': 'tvbstuttgart',
+  'douglas/': 'douglas',
 };
 
 function shopHostnameMatch(targetHostname) {
@@ -96,11 +108,15 @@ export function shopNameToHostname(shopName) {
 }
 
 export function findActiveShop(shops, hostname) {
-  const hostnameLengthDiff = (shopHostname) => Math.abs(shopHostname.length - hostname.length);
+  const hostnameLengthDiff = shopHostname =>
+    Math.abs(shopHostname.length - hostname.length);
 
   const sortedShops = shops
     .filter(shopHostnameMatch(hostname))
-    .sort((shopA, shopB) => hostnameLengthDiff(shopA.hostname) - hostnameLengthDiff(shopB.hostname));
+    .sort(
+      (shopA, shopB) =>
+        hostnameLengthDiff(shopA.hostname) - hostnameLengthDiff(shopB.hostname)
+    );
 
   if (sortedShops.length === 0) {
     return undefined;

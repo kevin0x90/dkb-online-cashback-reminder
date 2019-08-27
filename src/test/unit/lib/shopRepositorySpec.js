@@ -14,7 +14,9 @@ describe('allows retrieval and update of the persisted shops', () => {
   });
 
   it('should get the stored shops from local store', () => {
-    window.chrome.storage.local.get.mockImplementation((_, callback) => callback({ cashbackShops: [] }));
+    window.chrome.storage.local.get.mockImplementation((_, callback) =>
+      callback({ cashbackShops: [] })
+    );
 
     const resultPromise = new ShopRepository().getShops();
 
@@ -22,7 +24,9 @@ describe('allows retrieval and update of the persisted shops', () => {
   });
 
   it('should reject with an error when no cashback shops are stored', () => {
-    window.chrome.storage.local.get.mockImplementation((_, callback) => callback({ cashbackShops: undefined }));
+    window.chrome.storage.local.get.mockImplementation((_, callback) =>
+      callback({ cashbackShops: undefined })
+    );
 
     const resultPromise = new ShopRepository().getShops();
 
@@ -31,11 +35,13 @@ describe('allows retrieval and update of the persisted shops', () => {
 
   it('should store shops and resolve with the saved shops', () => {
     window.chrome.storage.local.set.mockImplementation((_, callback) => callback());
-    const shopsToSave = [{
-      shopName: 'test-shop',
-      discountInfo: '3% Rabatt',
-      hostname: 'test-shop',
-    }];
+    const shopsToSave = [
+      {
+        shopName: 'test-shop',
+        discountInfo: '3% Rabatt',
+        hostname: 'test-shop',
+      },
+    ];
 
     const resultPromise = new ShopRepository().saveShops(shopsToSave);
 

@@ -14,16 +14,20 @@ describe('dkb cashback information loader', () => {
   });
 
   it('should fetch a list of shop information from DKB cashback page', () => {
-    fetch.mockImplementation(() => Promise.resolve({
-      text: () => Promise.resolve(dkbCashbackResponse)
-    }));
+    fetch.mockImplementation(() =>
+      Promise.resolve({
+        text: () => Promise.resolve(dkbCashbackResponse),
+      })
+    );
 
     return loadCashbackInformation().then(shopInformation => {
-      expect(shopInformation).toEqual([{
-        shopName: 'Booking.com',
-        discountInfo: '2,5% Cashback',
-        hostname: 'booking.com'
-      }]);
+      expect(shopInformation).toEqual([
+        {
+          shopName: 'Booking.com',
+          discountInfo: '2,5% Cashback',
+          hostname: 'booking.com',
+        },
+      ]);
     });
   });
 });
