@@ -23,13 +23,13 @@ const SHOP_HOSTNAME_LOOKUP = {
   'rewe lieferservice': 'shop.rewe',
   'outletcity metzingen online shop': 'outletcity',
   'peter hahn': 'peterhahn',
-  'l\'occitane': 'loccitane',
+  "l'occitane": 'loccitane',
   'reno - die behalte ich gleich an!': 'reno',
   'van graaf': 'vangraaf',
   'bofrost*': 'bofrost',
   'fleurop blumenversand': 'fleurop',
   'neckermann macht\xB4s m\xf6glich! - m\xf6bel, heimtextilien': 'neckermann',
-  'lands\' end': 'landsend',
+  "lands' end": 'landsend',
   'the body shop': 'thebodyshop',
   'takko fashion': 'takko',
   'netto marken-discount': 'netto-online',
@@ -63,10 +63,10 @@ const SHOP_HOSTNAME_LOOKUP = {
   'sc magdeburg': 'scm-handball',
   'handball wm 2019': 'handball19',
   'frischauf! g\xf6ppingen': 'frischauf-gp',
-  'hunkem\xf6ller': 'hunkemoller',
+  hunkemöller: 'hunkemoller',
   'jack wolfskin outdoor': 'jack-wolfskin',
   'karstadt sports': 'karstadtsports',
-  's.oliver': 'soliver'
+  's.oliver': 'soliver',
 };
 
 function shopHostnameMatch(targetHostname) {
@@ -89,18 +89,22 @@ export function shopNameToHostname(shopName) {
   return normalizedShopName
     .replace('&', 'and')
     .replace(/\s/g, '-')
-    .replace('\'', '-')
+    .replace("'", '-')
     .replace('\xf6', 'oe')
     .replace('\xe4', 'ae')
     .replace('\xfc', 'ue');
 }
 
 export function findActiveShop(shops, hostname) {
-  const hostnameLengthDiff = (shopHostname) => Math.abs(shopHostname.length - hostname.length);
+  const hostnameLengthDiff = shopHostname =>
+    Math.abs(shopHostname.length - hostname.length);
 
   const sortedShops = shops
     .filter(shopHostnameMatch(hostname))
-    .sort((shopA, shopB) => hostnameLengthDiff(shopA.hostname) - hostnameLengthDiff(shopB.hostname));
+    .sort(
+      (shopA, shopB) =>
+        hostnameLengthDiff(shopA.hostname) - hostnameLengthDiff(shopB.hostname)
+    );
 
   if (sortedShops.length === 0) {
     return undefined;

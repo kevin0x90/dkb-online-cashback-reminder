@@ -4,8 +4,8 @@ describe('tab utils', () => {
   beforeEach(() => {
     window.chrome = {
       tabs: {
-        query: jest.fn()
-      }
+        query: jest.fn(),
+      },
     };
   });
 
@@ -24,7 +24,7 @@ describe('tab utils', () => {
       callback([]);
     });
 
-    return getActiveTab().catch((errorMessage) => {
+    return getActiveTab().catch(errorMessage => {
       expect(errorMessage).toEqual('no active tab available');
     });
   });

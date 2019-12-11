@@ -12,10 +12,7 @@ module.exports = {
   coverageDirectory: 'test/coverage',
 
   // An array of regexp pattern strings used to skip coverage collection
-  coveragePathIgnorePatterns: [
-    '\\\\node_modules\\\\',
-    '\\\\mockData\\\\'
-  ],
+  coveragePathIgnorePatterns: ['\\\\node_modules\\\\', '\\\\mockData\\\\'],
 
   // Make calling deprecated APIs throw helpful error messages
   errorOnDeprecated: true,
@@ -24,29 +21,16 @@ module.exports = {
   // globals: {},
 
   // An array of directory names to be searched recursively up from the requiring module's location
-  moduleDirectories: [
-    'node_modules',
-    'app/lib'
-  ],
+  moduleDirectories: ['node_modules', 'app/lib'],
 
   // An array of file extensions your modules use
-  moduleFileExtensions: [
-    'js',
-    'json',
-    'jsx',
-    'ts',
-    'tsx',
-    'node'
-  ],
+  moduleFileExtensions: ['js', 'json', 'jsx', 'ts', 'tsx', 'node'],
 
   // Automatically reset mock state between every test
   resetMocks: true,
 
   // A list of paths to directories that Jest should use to search for files in
-  roots: [
-    '<rootDir>/test',
-    '<rootDir>/app'
-  ],
+  roots: ['<rootDir>/test', '<rootDir>/app'],
 
   // Allows you to use a custom runner instead of Jest's default test runner
   runner: 'jest-runner',
@@ -55,9 +39,7 @@ module.exports = {
   testEnvironment: 'jest-environment-jsdom',
 
   // The glob patterns Jest uses to detect test files
-  testMatch: [
-    '**/*Spec.js'
-  ],
+  testMatch: ['**/*Spec.js'],
 
   // This option allows use of a custom test runner
   testRunner: 'jasmine2',

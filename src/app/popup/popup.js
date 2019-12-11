@@ -3,17 +3,20 @@ import { getActiveTab } from '../lib/tabUtils';
 
 function getShopByHostname(hostname) {
   return new Promise((resolve, reject) => {
-    chrome.runtime.sendMessage({
-      action: 'getAvailableShops'
-    }, response => {
-      const activeShop = findActiveShop(response.shops, hostname);
+    chrome.runtime.sendMessage(
+      {
+        action: 'getAvailableShops',
+      },
+      response => {
+        const activeShop = findActiveShop(response.shops, hostname);
 
-      if (activeShop === undefined) {
-        return reject(`no shop found for hostname: ${hostname}`);
+        if (activeShop === undefined) {
+          return reject(`no shop found for hostname: ${hostname}`);
+        }
+
+        return resolve(activeShop);
       }
-
-      return resolve(activeShop);
-    });
+    );
   });
 }
 
@@ -22,12 +25,14 @@ function openLinkInTab(shop) {
     chrome.runtime.sendMessage({
       action: 'newDkbCashbackFilterTab',
       activeShop: shop,
-      url: this.href
+      url: this.href,
     });
   };
 }
 
-document.getElementById('gotoDkbCashback').innerHTML = chrome.i18n.getMessage('goto_dkb_cashback_link_page');
+document.getElementById('gotoDkbCashback').innerHTML = chrome.i18n.getMessage(
+  'goto_dkb_cashback_link_page'
+);
 
 getActiveTab()
   .then(tab => new URL(tab.url))

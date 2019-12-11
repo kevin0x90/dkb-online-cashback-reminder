@@ -1,4 +1,4 @@
-module.exports = function (api) {
+module.exports = function(api) {
   api.cache(true);
 
   const presets = [
@@ -6,17 +6,16 @@ module.exports = function (api) {
       '@babel/preset-env',
       {
         useBuiltIns: 'entry',
-        targets: 'last 5 Chrome versions'
-      }
-    ]
+        targets: 'last 5 Chrome versions',
+        corejs: { version: 3, proposals: true },
+      },
+    ],
   ];
 
-  const plugins = [
-    '@babel/plugin-transform-template-literals'
-  ];
+  const plugins = ['@babel/plugin-transform-template-literals'];
 
   return {
     presets,
-    plugins
+    plugins,
   };
 };

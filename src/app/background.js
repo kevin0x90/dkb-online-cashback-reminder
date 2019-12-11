@@ -5,22 +5,26 @@ import escapeStringRegEx from 'escape-string-regexp';
 const shopRepository = new ShopRepository();
 
 function mapShopsToPageUrlMatcher(shops) {
-  return shops.map(shop => new chrome.declarativeContent.PageStateMatcher({
-    pageUrl: { originAndPathMatches: `\\b${escapeStringRegEx(shop.hostname)}\\b` },
-  }));
+  return shops.map(
+    shop =>
+      new chrome.declarativeContent.PageStateMatcher({
+        pageUrl: { originAndPathMatches: `\\b${escapeStringRegEx(shop.hostname)}\\b` },
+      })
+  );
 }
 
 function getShopPageChangeConditions() {
-  return shopRepository.getShops()
-    .then(mapShopsToPageUrlMatcher);
+  return shopRepository.getShops().then(mapShopsToPageUrlMatcher);
 }
 
 function setupDeclarativeContentRules() {
   getShopPageChangeConditions().then(conditions => {
-    chrome.declarativeContent.onPageChanged.addRules([{
-      conditions: conditions,
-      actions: [new chrome.declarativeContent.ShowPageAction()]
-    }]);
+    chrome.declarativeContent.onPageChanged.addRules([
+      {
+        conditions: conditions,
+        actions: [new chrome.declarativeContent.ShowPageAction()],
+      },
+    ]);
   });
 }
 
@@ -28,7 +32,10 @@ function synchWithCashbackInformation() {
   return loadDkbCashbackInformation()
     .then(shopRepository.saveShops)
     .then(() => {
-      chrome.declarativeContent.onPageChanged.removeRules(undefined, setupDeclarativeContentRules);
+      chrome.declarativeContent.onPageChanged.removeRules(
+        undefined,
+        setupDeclarativeContentRules
+      );
     });
 }
 
@@ -37,16 +44,15 @@ chrome.runtime.onStartup.addListener(synchWithCashbackInformation);
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   if (request.action === 'newDkbCashbackFilterTab') {
-    chrome.tabs.create({ url: request.url}, tab => {
+    chrome.tabs.create({ url: request.url }, tab => {
       chrome.tabs.executeScript(tab.id, { file: 'dkb-content/content.js' }, function() {
         chrome.tabs.sendMessage(tab.id, request);
       });
     });
   } else if (request.action === 'getAvailableShops') {
-    shopRepository.getShops()
-      .then(shops => {
-        sendResponse({ shops: shops });
-      });
+    shopRepository.getShops().then(shops => {
+      sendResponse({ shops: shops });
+    });
 
     return true;
   }
