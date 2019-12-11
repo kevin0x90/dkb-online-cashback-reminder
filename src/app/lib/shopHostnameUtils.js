@@ -63,10 +63,10 @@ const SHOP_HOSTNAME_LOOKUP = {
   'sc magdeburg': 'scm-handball',
   'handball wm 2019': 'handball19',
   'frischauf! g\xf6ppingen': 'frischauf-gp',
-  'hunkem\xf6ller': 'hunkemoller',
+  hunkemöller: 'hunkemoller',
   'jack wolfskin outdoor': 'jack-wolfskin',
   'karstadt sports': 'karstadtsports',
-  's.oliver': 'soliver'
+  's.oliver': 'soliver',
 };
 
 function shopHostnameMatch(targetHostname) {
@@ -96,11 +96,15 @@ export function shopNameToHostname(shopName) {
 }
 
 export function findActiveShop(shops, hostname) {
-  const hostnameLengthDiff = (shopHostname) => Math.abs(shopHostname.length - hostname.length);
+  const hostnameLengthDiff = shopHostname =>
+    Math.abs(shopHostname.length - hostname.length);
 
   const sortedShops = shops
     .filter(shopHostnameMatch(hostname))
-    .sort((shopA, shopB) => hostnameLengthDiff(shopA.hostname) - hostnameLengthDiff(shopB.hostname));
+    .sort(
+      (shopA, shopB) =>
+        hostnameLengthDiff(shopA.hostname) - hostnameLengthDiff(shopB.hostname)
+    );
 
   if (sortedShops.length === 0) {
     return undefined;

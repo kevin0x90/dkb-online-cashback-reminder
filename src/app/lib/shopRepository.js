@@ -1,5 +1,4 @@
 class ShopRepository {
-
   getShops() {
     return new Promise((resolve, reject) => {
       chrome.storage.local.get('cashbackShops', storeValue => {
@@ -14,7 +13,7 @@ class ShopRepository {
 
   saveShops(shopInfos) {
     return new Promise((resolve, reject) => {
-      chrome.storage.local.set({cashbackShops: shopInfos}, () => {
+      chrome.storage.local.set({ cashbackShops: shopInfos }, () => {
         if (chrome.runtime.lastError) {
           return reject(chrome.runtime.lastError);
         }
