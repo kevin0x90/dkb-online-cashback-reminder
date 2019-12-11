@@ -33,7 +33,7 @@
     "lint": "eslint ./app/**/*.js",
     "lint-test": "eslint ./test/**/*Spec.js",
     "test": "jest",
-    "format": "prettier --write './**/*.js'",
+    "format": "prettier --write './**/*.js' && eslint --fix './**/*.js'",
     "build": "webpack",
     "package": "cd dist/ && bestzip ../extension-package.zip * && cd ..",
     "coveralls": "jest --coverage --coverageReporters=text-lcov | coveralls"

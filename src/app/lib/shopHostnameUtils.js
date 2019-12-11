@@ -23,13 +23,13 @@ const SHOP_HOSTNAME_LOOKUP = {
   'rewe lieferservice': 'shop.rewe',
   'outletcity metzingen online shop': 'outletcity',
   'peter hahn': 'peterhahn',
-  "l'occitane": 'loccitane',
+  'l\'occitane': 'loccitane',
   'reno - die behalte ich gleich an!': 'reno',
   'van graaf': 'vangraaf',
   'bofrost*': 'bofrost',
   'fleurop blumenversand': 'fleurop',
   'neckermann macht\xB4s m\xf6glich! - m\xf6bel, heimtextilien': 'neckermann',
-  "lands' end": 'landsend',
+  'lands\' end': 'landsend',
   'the body shop': 'thebodyshop',
   'takko fashion': 'takko',
   'netto marken-discount': 'netto-online',
@@ -89,7 +89,7 @@ export function shopNameToHostname(shopName) {
   return normalizedShopName
     .replace('&', 'and')
     .replace(/\s/g, '-')
-    .replace("'", '-')
+    .replace('\'', '-')
     .replace('\xf6', 'oe')
     .replace('\xe4', 'ae')
     .replace('\xfc', 'ue');
