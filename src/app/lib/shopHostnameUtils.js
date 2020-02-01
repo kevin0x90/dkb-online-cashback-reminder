@@ -62,7 +62,7 @@ const SHOP_HOSTNAME_LOOKUP = {
   'sc magdeburg': 'scm-handball',
   'handball wm 2019': 'handball19',
   'frischauf! g\xf6ppingen': 'frischauf-gp',
-  'hunkem\xf6ller': 'hunkemoller',
+  'hunkemöller': 'hunkemoller',
   'jack wolfskin outdoor': 'jack-wolfskin',
   'karstadt sports': 'karstadtsports',
   's.oliver': 'soliver',
