@@ -4,10 +4,11 @@
     "es6": true,
     "browser": true,
     "webextensions": true,
-    "jest": true
+    "jest": true,
+    "node": true,
   },
   "parserOptions": {
-    "ecmaVersion": 6,
+    "ecmaVersion": 2017,
     "sourceType": "module",
     "ecmaFeatures": {
       "impliedStrict": true

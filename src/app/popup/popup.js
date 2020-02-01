@@ -30,12 +30,24 @@ function openLinkInTab(shop) {
   };
 }
 
+function getUrl(tab) {
+  const url = new URL(tab.url);
+  const parameters = url.searchParams;
+
+  // For testing purposes the active url parameter can override the current tab url
+  if (parameters.has('active-url')) {
+    return new URL(parameters.get('active-url'));
+  }
+
+  return url;
+}
+
 document.getElementById('gotoDkbCashback').innerHTML = chrome.i18n.getMessage(
   'goto_dkb_cashback_link_page'
 );
 
 getActiveTab()
-  .then(tab => new URL(tab.url))
+  .then(getUrl)
   .then(url => getShopByHostname(url.hostname))
   .then(shop => {
     const shopNameNode = document.getElementById('shopName');
