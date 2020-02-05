@@ -11,9 +11,5 @@ Don't lookup shops manually when online shopping, just look at the extension ico
 No tracking and just minimal access rights save your privacy.
 
 # Feel free to contribute and/or provide feedback
-The following additions / features are planned at the moment:
-
-- Add unit tests
-- Add german language support
 
 The extension is available in the [chrome app store](https://chrome.google.com/webstore/detail/online-cashback-reminder/kahbbcgmohmgphpepdpdnloicojmpedc "chrome app store").
