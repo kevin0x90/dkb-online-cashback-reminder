@@ -20,6 +20,11 @@ describe('Provides utility methods to get the hostname from a shop name and the 
     ${'heide park resort'}     | ${'heide-park'}
     ${'br volleys'}            | ${'berlin-recycling-volleys'}
     ${'douglas/'}              | ${'douglas'}
+    ${'tommy hilfiger'}        | ${'tommy'}
+    ${'calvin klein'}          | ${'calvinklein'}
+    ${'second life fashion'}   | ${'secondlifefashion'}
+    ${'joyn plus'}             | ${'joyn'}
+    ${'blablabus'}             | ${'blablabus'}
   `(
   'should correctly resolve a shop name $shopName to hostname $expectedHostname',
   ({ shopName, expectedHostname }) => {

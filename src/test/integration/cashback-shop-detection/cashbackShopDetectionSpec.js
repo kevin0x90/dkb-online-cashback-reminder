@@ -66,6 +66,8 @@ async function verifyFoundByExtension(driver, shopName) {
     await driver.get('https://shop.rewe.de/');
   } else if (shopName.toLowerCase().includes('allyouneed fresh')) {
     await driver.get('http://www.allyouneedfresh.de/');
+  } else if (shopName.toLowerCase().includes('blablabus')) {
+    await driver.get('https://de.blablabus.com/');
   } else {
     await driver.get('https://www.google.com');
     const searchInput = await waitForElement(driver, By.css('input[name="q"]'));
