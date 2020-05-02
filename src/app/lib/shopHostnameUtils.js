@@ -83,6 +83,7 @@ const SHOP_HOSTNAME_LOOKUP = {
   'calvin klein': 'calvinklein',
   'second life fashion': 'secondlifefashion',
   'joyn plus': 'joyn',
+  'messy weekend': 'messyweekend',
 };
 
 function shopHostnameMatch(targetHostname) {

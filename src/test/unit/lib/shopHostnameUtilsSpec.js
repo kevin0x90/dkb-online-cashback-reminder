@@ -11,7 +11,7 @@ describe('Provides utility methods to get the hostname from a shop name and the 
     ${'boden'}                 | ${'bodendirect'}
     ${'c&a'}                   | ${'c-and-a'}
     ${'smyths toys'}           | ${'smythstoys'}
-    ${'ernsting\'s family'}     | ${'ernstings-family'}
+    ${'ernsting\'s family'}    | ${'ernstings-family'}
     ${'dänisches bettenlager'} | ${'daenischesbettenlager'}
     ${'happy socks'}           | ${'happysocks'}
     ${'house of gerry weber'}  | ${'gerryweber'}
@@ -25,6 +25,7 @@ describe('Provides utility methods to get the hostname from a shop name and the 
     ${'second life fashion'}   | ${'secondlifefashion'}
     ${'joyn plus'}             | ${'joyn'}
     ${'blablabus'}             | ${'blablabus'}
+    ${'messy weekend'}         | ${'messyweekend'}
   `(
   'should correctly resolve a shop name $shopName to hostname $expectedHostname',
   ({ shopName, expectedHostname }) => {
