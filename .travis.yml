@@ -8,7 +8,8 @@ addons:
 before_install:
   - "cd src"
 language: node_js
-cache: npm
+cache: 
+  - npm: false
 node_js:
 - node
 script:
