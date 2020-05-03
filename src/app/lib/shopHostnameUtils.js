@@ -79,6 +79,11 @@ const SHOP_HOSTNAME_LOOKUP = {
   'br volleys': 'berlin-recycling-volleys',
   'tvb 1898 stuttgart': 'tvbstuttgart',
   'douglas/': 'douglas',
+  'tommy hilfiger': 'tommy',
+  'calvin klein': 'calvinklein',
+  'second life fashion': 'secondlifefashion',
+  'joyn plus': 'joyn',
+  'messy weekend': 'messyweekend',
 };
 
 function shopHostnameMatch(targetHostname) {
