@@ -17,7 +17,7 @@ script:
 - npm run clean
 - npm run build
 - chmod +x node_modules/chromedriver/lib/chromedriver/chromedriver
-- xvfb-run --server-args="-screen 0 1024x768x24" -e /dev/stdout -a npm run test-int 2>&1
+- xvfb-run --server-args="-screen 0 1024x768x24" -e /dev/stdout -a npm run test-int
 before_deploy:
   - "npm run package"
 deploy:
