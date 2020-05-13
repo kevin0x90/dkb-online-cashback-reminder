@@ -135,11 +135,9 @@ async function setupGoogleSearchSettings(driver) {
   return await driver.sleep(1000);
 }
 
-describe('The installed extension detects cashbck shops correctly', () => {
-  it('should correctly detect shops that are part of the dkb cashback program', async () => {
-    expect.assertions(1);
-
-    const driver = await new Builder()
+async function setupDriver() {
+  try {
+    return await new Builder()
       .forBrowser('chrome')
       .setChromeOptions(
         new Options()
@@ -151,6 +149,18 @@ describe('The installed extension detects cashbck shops correctly', () => {
           .addArguments(`--load-extension=${EXTENSION_PATH}`)
       )
       .build();
+  } catch (ex) {
+    // eslint-disable-next-line no-console
+    console.log(`Error during driver setup: ${ex}`);
+    throw ex;
+  }
+}
+
+describe('The installed extension detects cashbck shops correctly', () => {
+  it('should correctly detect shops that are part of the dkb cashback program', async () => {
+    expect.assertions(1);
+
+    const driver = await setupDriver();
 
     await setupGoogleSearchSettings(driver);
 
