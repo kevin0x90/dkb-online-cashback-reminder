@@ -115,15 +115,23 @@ async function checkExtensionPopup(driver, shopName) {
 
 async function setupGoogleSearchSettings(driver) {
   await driver.get('https://www.google.com/preferences?hl=en-DE&fg=1');
+
+  // eslint-disable-next-line no-console
+  console.log('Open regional settings');
   const regionShowMoreLink = await waitForElement(driver, By.id('regionanchormore'));
   await regionShowMoreLink.click();
   await driver.sleep(1000);
+
+  // eslint-disable-next-line no-console
+  console.log('Select Germany');
   const germanyRadioButton = await waitForElement(
     driver,
     By.css('.jfk-radiobutton[data-value="DE"][role="radio"]')
   );
   await germanyRadioButton.click();
 
+  // eslint-disable-next-line no-console
+  console.log('Save settings for session');
   const saveButton = await waitForElement(
     driver,
     By.css('.jfk-button.jfk-button-action')
@@ -170,15 +178,22 @@ describe('The installed extension detects cashbck shops correctly', () => {
     const failedShopNames = [];
 
     try {
+      // eslint-disable-next-line no-console
+      console.log('Start collection of shops from dkb shops 4 you');
       await driver.get('https://www.dkb.de/banking/plus/online-cashback/');
       await driver.get(
         'https://www.dkb.de/Welcome/content/CmsDetail/Card4YouShops.xhtml?$event=gotoPage&category=0&sort=0&pageSize=300&page=1&%24display.type=single-part'
       );
 
+      // eslint-disable-next-line no-console
+      console.log('Collecting shops');
       const shopsTable = await waitForElement(driver, By.className('shops'));
       const allShopNameElementsOnPage = await shopsTable.findElements(
         By.css('.mainRow td h3')
       );
+
+      // eslint-disable-next-line no-console
+      console.log(`Found ${allShopNameElementsOnPage.length} shop elements`);
       const allShopNames = [];
 
       for (const shopNameElement of allShopNameElementsOnPage) {
