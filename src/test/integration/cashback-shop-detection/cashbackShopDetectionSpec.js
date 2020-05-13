@@ -181,6 +181,7 @@ describe('The installed extension detects cashbck shops correctly', () => {
       // eslint-disable-next-line no-console
       console.log('Start collection of shops from dkb shops 4 you');
       await driver.get('https://www.dkb.de/banking/plus/online-cashback/');
+      await driver.sleep(3000);
       await driver.get(
         'https://www.dkb.de/Welcome/content/CmsDetail/Card4YouShops.xhtml?$event=gotoPage&category=0&sort=0&pageSize=300&page=1&%24display.type=single-part'
       );
