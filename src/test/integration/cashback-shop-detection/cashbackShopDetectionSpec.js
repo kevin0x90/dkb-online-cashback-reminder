@@ -181,17 +181,17 @@ describe('The installed extension detects cashbck shops correctly', () => {
       // eslint-disable-next-line no-console
       console.log('Start collection of shops from dkb shops 4 you');
       await driver.get('https://www.dkb.de/banking/plus/online-cashback/');
+      await driver.get('https://www.dkb.de/banking/plus/online-cashback/');
+      await driver.get('https://www.dkb.de/banking/plus/online-cashback/');
       await driver.sleep(3000);
-      await driver.get(
-        'https://www.dkb.de/Welcome/content/CmsDetail/Card4YouShops.xhtml?$event=gotoPage&category=0&sort=0&pageSize=300&page=1&%24display.type=single-part'
-      );
+      await driver.get('https://www.dkb.de/Welcome/content/CmsDetail/Card4YouShops.xhtml?$event=gotoPage&category=0&sort=0&pageSize=300&page=1&%24display.type=single-part');
+      await driver.get('https://www.dkb.de/Welcome/content/CmsDetail/Card4YouShops.xhtml?$event=gotoPage&category=0&sort=0&pageSize=300&page=1&%24display.type=single-part');
+      await driver.get('https://www.dkb.de/Welcome/content/CmsDetail/Card4YouShops.xhtml?$event=gotoPage&category=0&sort=0&pageSize=300&page=1&%24display.type=single-part');
 
       // eslint-disable-next-line no-console
       console.log('Collecting shops');
       const shopsTable = await waitForElement(driver, By.className('shops'));
-      const allShopNameElementsOnPage = await shopsTable.findElements(
-        By.css('.mainRow td h3')
-      );
+      const allShopNameElementsOnPage = await shopsTable.findElements(By.css('.mainRow td h3'));
 
       // eslint-disable-next-line no-console
       console.log(`Found ${allShopNameElementsOnPage.length} shop elements`);
