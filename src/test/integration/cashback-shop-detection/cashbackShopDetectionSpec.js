@@ -160,6 +160,9 @@ describe('The installed extension detects cashbck shops correctly', () => {
   it('should correctly detect shops that are part of the dkb cashback program', async () => {
     expect.assertions(1);
 
+    // eslint-disable-next-line no-console
+    console.log('Starting chrome driver test');
+
     const driver = await setupDriver();
 
     await setupGoogleSearchSettings(driver);
