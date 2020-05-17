@@ -55,6 +55,8 @@ function calculateExtensionId(extensionPath) {
 async function waitForElement(driver, selector) {
   const waitResult = await driver.wait(until.elementLocated(selector), 3000);
 
+  // eslint-disable-next-line no-console
+  console.log(`result waiting for selector ${selector}: ${waitResult}`);
   if (waitResult === 'timed-out') {
     throw new Error(`timeout while waiting for selector: ${selector}`);
   }
