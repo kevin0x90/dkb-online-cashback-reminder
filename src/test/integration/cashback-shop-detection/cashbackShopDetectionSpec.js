@@ -53,7 +53,11 @@ function calculateExtensionId(extensionPath) {
 }
 
 async function waitForElement(driver, selector) {
-  await driver.wait(until.elementLocated(selector));
+  const waitResult = await driver.wait(until.elementLocated(selector), 3000);
+
+  if (waitResult === 'timed-out') {
+    throw new Error(`timeout while waiting for selector: ${selector}`);
+  }
 
   return await driver.findElement(selector);
 }
@@ -164,6 +168,30 @@ async function setupDriver() {
   }
 }
 
+async function collectAllShopnamesFromDkb(driver) {
+  // eslint-disable-next-line no-console
+  console.log('Start collection of shops from dkb shops 4 you');
+  await driver.get('https://www.dkb.de/banking/plus/online-cashback/');
+  await driver.sleep(3000);
+  await driver.get('https://www.dkb.de/Welcome/content/CmsDetail/Card4YouShops.xhtml?$event=gotoPage&category=0&sort=0&pageSize=300&page=1&%24display.type=single-part');
+
+  // eslint-disable-next-line no-console
+  console.log('Collecting shops');
+  const shopsTable = await waitForElement(driver, By.className('shops'));
+  const allShopNameElementsOnPage = await shopsTable.findElements(By.css('.mainRow td h3'));
+
+  // eslint-disable-next-line no-console
+  console.log(`Found ${allShopNameElementsOnPage.length} shop elements`);
+  const allShopNames = [];
+
+  for (const shopNameElement of allShopNameElementsOnPage) {
+    const shopName = await shopNameElement.getText();
+    allShopNames.push(shopName);
+  }
+
+  return allShopNames;
+}
+
 describe('The installed extension detects cashbck shops correctly', () => {
   it('should correctly detect shops that are part of the dkb cashback program', async () => {
     expect.assertions(1);
@@ -178,30 +206,7 @@ describe('The installed extension detects cashbck shops correctly', () => {
     const failedShopNames = [];
 
     try {
-      // eslint-disable-next-line no-console
-      console.log('Start collection of shops from dkb shops 4 you');
-      await driver.get('https://www.dkb.de/banking/plus/online-cashback/');
-      await driver.get('https://www.dkb.de/banking/plus/online-cashback/');
-      await driver.get('https://www.dkb.de/banking/plus/online-cashback/');
-      await driver.sleep(3000);
-      await driver.get('https://www.dkb.de/Welcome/content/CmsDetail/Card4YouShops.xhtml?$event=gotoPage&category=0&sort=0&pageSize=300&page=1&%24display.type=single-part');
-      await driver.get('https://www.dkb.de/Welcome/content/CmsDetail/Card4YouShops.xhtml?$event=gotoPage&category=0&sort=0&pageSize=300&page=1&%24display.type=single-part');
-      await driver.get('https://www.dkb.de/Welcome/content/CmsDetail/Card4YouShops.xhtml?$event=gotoPage&category=0&sort=0&pageSize=300&page=1&%24display.type=single-part');
-
-      // eslint-disable-next-line no-console
-      console.log('Collecting shops');
-      const shopsTable = await waitForElement(driver, By.className('shops'));
-      const allShopNameElementsOnPage = await shopsTable.findElements(By.css('.mainRow td h3'));
-
-      // eslint-disable-next-line no-console
-      console.log(`Found ${allShopNameElementsOnPage.length} shop elements`);
-      const allShopNames = [];
-
-      for (const shopNameElement of allShopNameElementsOnPage) {
-        const shopName = await shopNameElement.getText();
-        allShopNames.push(shopName);
-      }
-
+      const allShopNames = collectAllShopnamesFromDkb(driver);
       for (const shopName of allShopNames) {
         const isVerified = await verifyFoundByExtension(driver, shopName);
 
