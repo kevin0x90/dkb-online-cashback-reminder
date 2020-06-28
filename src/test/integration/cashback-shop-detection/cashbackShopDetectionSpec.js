@@ -171,6 +171,7 @@ async function setupDriver() {
           .addArguments('--useAutomationExtension=false')
           .excludeSwitches('enable-automation')
       )
+      .usingHttpAgent('Mozilla/5.0 (iPhone; CPU iPhone OS 12_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) GSA/83.0.268992909 Mobile/15E148 Safari/605.1')
       .build();
   } catch (ex) {
     // eslint-disable-next-line no-console
