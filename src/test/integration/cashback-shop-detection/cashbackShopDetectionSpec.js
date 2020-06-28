@@ -52,8 +52,8 @@ function calculateExtensionId(extensionPath) {
   return result;
 }
 
-async function waitForElement(driver, selector) {
-  const waitResult = await driver.wait(until.elementLocated(selector), 3000);
+async function waitForElement(driver, selector, waitTime = 3000) {
+  const waitResult = await driver.wait(until.elementLocated(selector), waitTime);
 
   // eslint-disable-next-line no-console
   console.log(`result waiting for selector ${selector}: ${waitResult}`);
@@ -170,6 +170,21 @@ async function setupDriver() {
   }
 }
 
+async function retry(callback, count) {
+  let result = null;
+  for (let i = 0; i < count; ++i) {
+    try {
+      result = await callback();
+      break;
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.log(`error [${error}] going to retry ${i + 1} of ${count}`);
+    }
+  }
+
+  return result;
+}
+
 async function collectAllShopnamesFromDkb(driver) {
   // eslint-disable-next-line no-console
   console.log('Start collection of shops from dkb shops 4 you');
@@ -179,7 +194,7 @@ async function collectAllShopnamesFromDkb(driver) {
 
   // eslint-disable-next-line no-console
   console.log('Collecting shops');
-  const shopsTable = await waitForElement(driver, By.className('shops'));
+  const shopsTable = await waitForElement(driver, By.className('shops'), 6000);
   const allShopNameElementsOnPage = await shopsTable.findElements(By.css('.mainRow td h3'));
 
   // eslint-disable-next-line no-console
@@ -208,7 +223,7 @@ describe('The installed extension detects cashbck shops correctly', () => {
     const failedShopNames = [];
 
     try {
-      const allShopNames = await collectAllShopnamesFromDkb(driver);
+      const allShopNames = await retry(async () => await collectAllShopnamesFromDkb(driver), 3);
       for (const shopName of allShopNames) {
         const isVerified = await verifyFoundByExtension(driver, shopName);
 
