@@ -65,6 +65,19 @@ async function waitForElement(driver, selector, waitTime = 3000) {
   return await driver.findElement(selector);
 }
 
+async function searchOnGoogleAndVisitFirstMatch(driver, searchTerm) {
+  await driver.get('https://www.google.com');
+  const searchInput = await waitForElement(driver, By.css('input[name="q"]'));
+  await searchInput.sendKeys(searchTerm);
+  await searchInput.sendKeys(Key.RETURN);
+
+  const firstSearchResultLink = await waitForElement(
+    driver,
+    By.css('#search .rc .r a')
+  );
+  await firstSearchResultLink.click();
+}
+
 async function verifyFoundByExtension(driver, shopName) {
   // Workaround for sites because of their bad seo department
   if (shopName.toLowerCase().includes('neckermann')) {
@@ -78,16 +91,7 @@ async function verifyFoundByExtension(driver, shopName) {
   } else if (shopName.toLowerCase() === 'boden') {
     await driver.get('https://www.bodendirect.de/');
   } else {
-    await driver.get('https://www.google.com');
-    const searchInput = await waitForElement(driver, By.css('input[name="q"]'));
-    await searchInput.sendKeys(shopName);
-    await searchInput.sendKeys(Key.RETURN);
-
-    const firstSearchResultLink = await waitForElement(
-      driver,
-      By.css('#search .rc .r a')
-    );
-    await firstSearchResultLink.click();
+    await searchOnGoogleAndVisitFirstMatch(driver, shopName);
   }
 
   const verified = await checkExtensionPopup(driver, shopName);
@@ -191,7 +195,7 @@ async function retry(callback, count) {
 async function collectAllShopnamesFromDkb(driver) {
   // eslint-disable-next-line no-console
   console.log('Start collection of shops from dkb shops 4 you');
-  await driver.get('https://www.dkb.de/banking/plus/online-cashback/');
+  await searchOnGoogleAndVisitFirstMatch(driver, 'Das kann Bank | DKB AG');
   await driver.sleep(3000);
   await driver.get('https://www.dkb.de/Welcome/content/CmsDetail/Card4YouShops.xhtml?$event=gotoPage&category=0&sort=0&pageSize=300&page=1&%24display.type=single-part');
   await driver.sleep(4000);
