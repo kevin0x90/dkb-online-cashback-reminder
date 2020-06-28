@@ -208,7 +208,7 @@ describe('The installed extension detects cashbck shops correctly', () => {
     const failedShopNames = [];
 
     try {
-      const allShopNames = collectAllShopnamesFromDkb(driver);
+      const allShopNames = await collectAllShopnamesFromDkb(driver);
       for (const shopName of allShopNames) {
         const isVerified = await verifyFoundByExtension(driver, shopName);
 
