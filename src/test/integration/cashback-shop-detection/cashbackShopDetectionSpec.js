@@ -1,5 +1,6 @@
 import { Builder, By, until, Key } from 'selenium-webdriver';
 import { Options } from 'selenium-webdriver/chrome';
+import { Timeouts } from 'selenium-webdriver/lib/capabilities';
 import 'chromedriver';
 import crypto from 'crypto';
 import path from 'path';
@@ -151,6 +152,8 @@ async function setupGoogleSearchSettings(driver) {
 
 async function setupDriver() {
   try {
+    Timeouts.pageLoad = 10000;
+
     return await new Builder()
       .forBrowser('chrome')
       .setChromeOptions(
