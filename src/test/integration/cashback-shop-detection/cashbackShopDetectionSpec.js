@@ -168,6 +168,8 @@ async function setupDriver() {
           .addArguments('--window-size=1024x768')
           .addArguments('--disable-dev-shm-usage')
           .addArguments(`--load-extension=${EXTENSION_PATH}`)
+          .addArguments('--useAutomationExtension=false')
+          .excludeSwitches('enable-automation')
       )
       .build();
   } catch (ex) {
