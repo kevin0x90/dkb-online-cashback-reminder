@@ -1,5 +1,4 @@
 src/node_modules/**
 src/dist/**
 src/test/coverage/**
-src/package-lock.json
 .idea/
