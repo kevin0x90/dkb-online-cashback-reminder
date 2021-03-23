@@ -46,12 +46,12 @@ function loadCashbackInformation() {
     '&%24display.type=single-part';
 
   const getOptions = {
-    origin: null,
+    origin: 'https://www.dkb.de/',
     credentials: 'include',
     headers: {
+      'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36',
       accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
       'accept-language': 'de-DE,de;q=0.9,en-US;q=0.8,en;q=0.7',
-      'x-requested-with': 'XMLHttpRequest',
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Credentials': true,
       'Access-Control-Allow-Methods': 'GET',
