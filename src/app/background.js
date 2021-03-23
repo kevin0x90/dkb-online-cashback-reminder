@@ -5,12 +5,13 @@ import escapeStringRegEx from 'escape-string-regexp';
 const shopRepository = new ShopRepository();
 
 function mapShopsToPageUrlMatcher(shops) {
-  return shops.map(
-    shop =>
-      new chrome.declarativeContent.PageStateMatcher({
-        pageUrl: { originAndPathMatches: `\\b${escapeStringRegEx(shop.hostname)}\\b` },
-      })
-  );
+  return shops.map(shop => {
+    const regex = `\\b${escapeStringRegEx(shop.hostname)}\\b`;
+
+    return new chrome.declarativeContent.PageStateMatcher({
+      pageUrl: { originAndPathMatches: regex },
+    });
+  });
 }
 
 function getShopPageChangeConditions() {
