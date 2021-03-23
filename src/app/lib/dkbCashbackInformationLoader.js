@@ -63,6 +63,7 @@ function loadCashbackInformation() {
   };
 
   return fetch('https://www.dkb.de/banking/plus/online-cashback/', getOptions)
+    .then(res => res.text())
     .then(() => fetch(CASHBACK_URL, getOptions))
     .then(res => res.text())
     .then(transformToDomElement)
