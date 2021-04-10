@@ -20,10 +20,10 @@
     "page_action": {
       "default_popup": "popup/popup.html",
       "default_icon": {
-        "16": "images/percentage16.png",
-        "32": "images/percentage32.png",
-        "48": "images/percentage48.png",
-        "128": "images/percentage128.png"
+        "16": "images/percentage16_gray.png",
+        "32": "images/percentage32_gray.png",
+        "48": "images/percentage48_gray.png",
+        "128": "images/percentage128_gray.png"
       }
     },
     "icons": {

@@ -11,7 +11,7 @@ describe('Provides utility methods to get the hostname from a shop name and the 
     ${'boden'}                 | ${'bodendirect'}
     ${'c&a'}                   | ${'c-and-a'}
     ${'smyths toys'}           | ${'smythstoys'}
-    ${'ernsting\'s family'}    | ${'ernstings-family'}
+    ${'ernsting\'s family'}     | ${'ernstings-family'}
     ${'dänisches bettenlager'} | ${'daenischesbettenlager'}
     ${'happy socks'}           | ${'happysocks'}
     ${'house of gerry weber'}  | ${'gerryweber'}
@@ -27,13 +27,13 @@ describe('Provides utility methods to get the hostname from a shop name and the 
     ${'blablabus'}             | ${'blablabus'}
     ${'messy weekend'}         | ${'messyweekend'}
   `(
-  'should correctly resolve a shop name $shopName to hostname $expectedHostname',
-  ({ shopName, expectedHostname }) => {
-    const hostname = shopNameToHostname(shopName);
+    'should correctly resolve a shop name $shopName to hostname $expectedHostname',
+    ({ shopName, expectedHostname }) => {
+      const hostname = shopNameToHostname(shopName);
 
-    expect(hostname).toEqual(expectedHostname);
-  }
-);
+      expect(hostname).toEqual(expectedHostname);
+    }
+  );
 
   it.each`
     hostname          | expectedShop
@@ -42,30 +42,30 @@ describe('Provides utility methods to get the hostname from a shop name and the 
     ${'shop.olympus'} | ${undefined}
     ${'olymp'}        | ${{ shopName: 'olymp', hostname: 'olymp' }}
   `(
-  'should find the shop $expectedShop to a hostname $hostname',
-  ({ hostname, expectedShop }) => {
-    const shops = [
-      {
-        shopName: 'my test shop',
-        hostname: 'my-test-shop',
-      },
-      {
-        shopName: 'my awesome test shop',
-        hostname: 'my-test',
-      },
-      {
-        shopName: 'unknown shop',
-        hostname: 'unknown-shop',
-      },
-      {
-        shopName: 'olymp',
-        hostname: 'olymp',
-      },
-    ];
+    'should find the shop $expectedShop to a hostname $hostname',
+    ({ hostname, expectedShop }) => {
+      const shops = [
+        {
+          shopName: 'my test shop',
+          hostname: 'my-test-shop',
+        },
+        {
+          shopName: 'my awesome test shop',
+          hostname: 'my-test',
+        },
+        {
+          shopName: 'unknown shop',
+          hostname: 'unknown-shop',
+        },
+        {
+          shopName: 'olymp',
+          hostname: 'olymp',
+        },
+      ];
 
-    const activeShop = findActiveShop(shops, hostname);
+      const activeShop = findActiveShop(shops, hostname);
 
-    expect(activeShop).toEqual(expectedShop);
-  }
-);
+      expect(activeShop).toEqual(expectedShop);
+    }
+  );
 });

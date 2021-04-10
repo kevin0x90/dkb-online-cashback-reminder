@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
 
   function filterCashbackList(request) {
@@ -9,7 +9,7 @@
     searchButton.click();
   }
 
-  chrome.runtime.onMessage.addListener(function(request) {
+  chrome.runtime.onMessage.addListener(function (request) {
     if (request.action === 'newDkbCashbackFilterTab') {
       filterCashbackList(request);
     }

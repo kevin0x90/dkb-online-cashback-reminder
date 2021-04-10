@@ -21,6 +21,7 @@ const SHOP_HOSTNAME_LOOKUP = {
   'depot online-shop': 'depot-online',
   'babor cosmetics': 'babor',
   'rewe lieferservice': 'shop.rewe',
+  'rewe paketservice': 'shop.rewe',
   'outletcity metzingen online shop': 'outletcity',
   'peter hahn': 'peterhahn',
   'l\'occitane': 'loccitane',
@@ -84,10 +85,16 @@ const SHOP_HOSTNAME_LOOKUP = {
   'second life fashion': 'secondlifefashion',
   'joyn plus': 'joyn',
   'messy weekend': 'messyweekend',
+  'rose bags': 'rosebags',
+  'sunday natural': 'sunday',
+  'iu internationale hochschule': 'iu',
+  'mac cosmetics': 'maccosmetics',
+  'topshop': 'my.topshop',
+  'babybjörn': 'babybjorn',
 };
 
 function shopHostnameMatch(targetHostname) {
-  return shop => {
+  return (shop) => {
     const escapedShopHostname = escapeStringRegExp(shop.hostname);
     const shopHostnameMatcher = new RegExp(`\\b${escapedShopHostname}\\b`);
 
@@ -113,7 +120,7 @@ export function shopNameToHostname(shopName) {
 }
 
 export function findActiveShop(shops, hostname) {
-  const hostnameLengthDiff = shopHostname =>
+  const hostnameLengthDiff = (shopHostname) =>
     Math.abs(shopHostname.length - hostname.length);
 
   const sortedShops = shops

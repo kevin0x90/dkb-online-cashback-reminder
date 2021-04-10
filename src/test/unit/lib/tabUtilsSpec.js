@@ -14,7 +14,7 @@ describe('tab utils', () => {
       callback([{}]);
     });
 
-    return getActiveTab().then(activeTab => {
+    return getActiveTab().then((activeTab) => {
       expect(activeTab).toEqual({});
     });
   });
@@ -24,7 +24,7 @@ describe('tab utils', () => {
       callback([]);
     });
 
-    return getActiveTab().catch(errorMessage => {
+    return getActiveTab().catch((errorMessage) => {
       expect(errorMessage).toEqual('no active tab available');
     });
   });
