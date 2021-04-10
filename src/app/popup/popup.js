@@ -7,7 +7,7 @@ function getShopByHostname(hostname) {
       {
         action: 'getAvailableShops',
       },
-      response => {
+      (response) => {
         const activeShop = findActiveShop(response.shops, hostname);
 
         if (activeShop === undefined) {
@@ -21,7 +21,7 @@ function getShopByHostname(hostname) {
 }
 
 function openLinkInTab(shop) {
-  return function() {
+  return function () {
     chrome.runtime.sendMessage({
       action: 'newDkbCashbackFilterTab',
       activeShop: shop,
@@ -48,8 +48,8 @@ document.getElementById('gotoDkbCashback').innerHTML = chrome.i18n.getMessage(
 
 getActiveTab()
   .then(getUrl)
-  .then(url => getShopByHostname(url.hostname))
-  .then(shop => {
+  .then((url) => getShopByHostname(url.hostname))
+  .then((shop) => {
     const shopNameNode = document.getElementById('shopName');
     const discountInfoNode = document.getElementById('discountInfo');
     const cashbackLinkNode = document.getElementById('gotoDkbCashback');

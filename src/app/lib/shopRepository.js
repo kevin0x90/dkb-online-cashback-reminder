@@ -1,7 +1,7 @@
 class ShopRepository {
   getShops() {
     return new Promise((resolve, reject) => {
-      chrome.storage.local.get('cashbackShops', storeValue => {
+      chrome.storage.local.get('cashbackShops', (storeValue) => {
         if (storeValue.cashbackShops === undefined) {
           return reject('no stored cashback shops');
         }

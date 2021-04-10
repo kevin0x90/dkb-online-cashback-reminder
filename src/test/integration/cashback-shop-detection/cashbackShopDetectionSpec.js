@@ -67,14 +67,17 @@ async function waitForElement(driver, selector, waitTime = 3000) {
 
 async function searchOnGoogleAndVisitFirstMatch(driver, searchTerm) {
   await driver.get('https://www.google.com');
+
+  const cookieAllowanceButtons = await driver.findElements(By.xpath('//button/div[text()="Ich stimme zu"]'));
+  if (cookieAllowanceButtons.length === 1) {
+    cookieAllowanceButtons[0].click();
+  }
+
   const searchInput = await waitForElement(driver, By.css('input[name="q"]'));
   await searchInput.sendKeys(searchTerm);
   await searchInput.sendKeys(Key.RETURN);
 
-  const firstSearchResultLink = await waitForElement(
-    driver,
-    By.css('#search .rc .r a')
-  );
+  const firstSearchResultLink = await waitForElement(driver, By.xpath('//div[@id="search"]//div[@class="g"]//a'));
   await firstSearchResultLink.click();
 }
 
@@ -90,6 +93,8 @@ async function verifyFoundByExtension(driver, shopName) {
     await driver.get('https://de.blablabus.com/');
   } else if (shopName.toLowerCase() === 'boden') {
     await driver.get('https://www.bodendirect.de/');
+  } else if (shopName.toLowerCase().includes('topshop')) {
+    await driver.get('https://my.topshop.com/');
   } else {
     await searchOnGoogleAndVisitFirstMatch(driver, shopName);
   }
@@ -170,8 +175,19 @@ async function setupDriver() {
           .addArguments(`--load-extension=${EXTENSION_PATH}`)
           .addArguments('--useAutomationExtension=false')
           .excludeSwitches('enable-automation')
+          .setUserPreferences({
+            profile: {
+              cookie_controls_mode: 0,
+              managed_default_content_settings: {
+                cookies: 1,
+                geolocation: 1,
+              },
+            }
+          })
       )
-      .usingHttpAgent('Mozilla/5.0 (iPhone; CPU iPhone OS 12_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) GSA/83.0.268992909 Mobile/15E148 Safari/605.1')
+      .usingHttpAgent(
+        'Mozilla/5.0 (iPhone; CPU iPhone OS 12_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) GSA/83.0.268992909 Mobile/15E148 Safari/605.1'
+      )
       .build();
   } catch (ex) {
     // eslint-disable-next-line no-console
@@ -200,13 +216,17 @@ async function collectAllShopnamesFromDkb(driver) {
   console.log('Start collection of shops from dkb shops 4 you');
   await searchOnGoogleAndVisitFirstMatch(driver, 'Das kann Bank | DKB AG');
   await driver.sleep(3000);
-  await driver.get('https://www.dkb.de/Welcome/content/CmsDetail/Card4YouShops.xhtml?$event=gotoPage&category=0&sort=0&pageSize=300&page=1&%24display.type=single-part');
+  await driver.get(
+    'https://www.dkb.de/Welcome/content/CmsDetail/Card4YouShops.xhtml?$event=gotoPage&category=0&sort=0&pageSize=300&page=1&%24display.type=single-part'
+  );
   await driver.sleep(4000);
 
   // eslint-disable-next-line no-console
   console.log('Collecting shops');
   const shopsTable = await waitForElement(driver, By.className('shops'), 6000);
-  const allShopNameElementsOnPage = await shopsTable.findElements(By.css('.mainRow td h3'));
+  const allShopNameElementsOnPage = await shopsTable.findElements(
+    By.css('.mainRow td h3')
+  );
 
   // eslint-disable-next-line no-console
   console.log(`Found ${allShopNameElementsOnPage.length} shop elements`);
@@ -234,7 +254,10 @@ describe('The installed extension detects cashbck shops correctly', () => {
     const failedShopNames = [];
 
     try {
-      const allShopNames = await retry(async () => await collectAllShopnamesFromDkb(driver), 3);
+      const allShopNames = await retry(
+        async () => await collectAllShopnamesFromDkb(driver),
+        3
+      );
       for (const shopName of allShopNames) {
         const isVerified = await verifyFoundByExtension(driver, shopName);
 

@@ -20,7 +20,7 @@ describe('dkb cashback information loader', () => {
       })
     );
 
-    return loadCashbackInformation().then(shopInformation => {
+    return loadCashbackInformation().then((shopInformation) => {
       expect(shopInformation).toEqual([
         {
           shopName: 'Booking.com',

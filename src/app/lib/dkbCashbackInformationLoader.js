@@ -12,10 +12,7 @@ function getDiscountInfoFromTableRowDomNode(tableRowDomNode) {
   const discountNodeText = tableRowDomNode.querySelector('td:nth-child(3)>span')
     .innerText;
 
-  return discountNodeText
-    .replace(/ /g, '')
-    .replace(/\s/g, ' ')
-    .trim();
+  return discountNodeText.replace(/ /g, '').replace(/\s/g, ' ').trim();
 }
 
 function nodeToStoreObject(tableRowDomNode) {
@@ -49,7 +46,8 @@ function loadCashbackInformation() {
     origin: 'https://www.dkb.de/',
     credentials: 'include',
     headers: {
-      'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36',
+      'User-Agent':
+        'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36',
       accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
       'accept-language': 'de-DE,de;q=0.9,en-US;q=0.8,en;q=0.7',
       'Access-Control-Allow-Origin': '*',
@@ -63,9 +61,9 @@ function loadCashbackInformation() {
   };
 
   return fetch('https://www.dkb.de/banking/plus/online-cashback/', getOptions)
-    .then(res => res.text())
+    .then((res) => res.text())
     .then(() => fetch(CASHBACK_URL, getOptions))
-    .then(res => res.text())
+    .then((res) => res.text())
     .then(transformToDomElement)
     .then(extractShopInformation);
 }
