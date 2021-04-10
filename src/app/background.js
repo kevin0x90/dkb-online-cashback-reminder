@@ -5,7 +5,7 @@ import escapeStringRegEx from 'escape-string-regexp';
 const shopRepository = new ShopRepository();
 
 function loadImageData(url) {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     const canvas = document.body.appendChild(document.createElement('canvas'));
     const context = canvas.getContext('2d');
     const img = new Image();

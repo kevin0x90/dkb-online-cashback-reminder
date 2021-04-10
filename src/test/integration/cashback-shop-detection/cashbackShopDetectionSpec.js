@@ -68,7 +68,9 @@ async function waitForElement(driver, selector, waitTime = 3000) {
 async function searchOnGoogleAndVisitFirstMatch(driver, searchTerm) {
   await driver.get('https://www.google.com');
 
-  const cookieAllowanceButtons = await driver.findElements(By.xpath('//button/div[text()="Ich stimme zu"]'));
+  const cookieAllowanceButtons = await driver.findElements(
+    By.xpath('//button/div[text()="Ich stimme zu"]')
+  );
   if (cookieAllowanceButtons.length === 1) {
     cookieAllowanceButtons[0].click();
   }
@@ -77,7 +79,10 @@ async function searchOnGoogleAndVisitFirstMatch(driver, searchTerm) {
   await searchInput.sendKeys(searchTerm);
   await searchInput.sendKeys(Key.RETURN);
 
-  const firstSearchResultLink = await waitForElement(driver, By.xpath('//div[@id="search"]//div[@class="g"]//a'));
+  const firstSearchResultLink = await waitForElement(
+    driver,
+    By.xpath('//div[@id="search"]//div[@class="g"]//a')
+  );
   await firstSearchResultLink.click();
 }
 
@@ -182,7 +187,7 @@ async function setupDriver() {
                 cookies: 1,
                 geolocation: 1,
               },
-            }
+            },
           })
       )
       .usingHttpAgent(
