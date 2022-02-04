@@ -1,3 +1,5 @@
+# Since the DKB discontinued their online cashback program this extension is archived and no longer available in the chrome extension store!!
+
 # dkb-online-cashback-reminder
 
 [![Build Status](https://travis-ci.org/kevin0x90/dkb-online-cashback-reminder.svg?branch=master)](https://travis-ci.org/kevin0x90/dkb-online-cashback-reminder)
